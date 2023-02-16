@@ -1,0 +1,17 @@
+.nav {
+    grid-area: nav;
+    background-color: lightskyblue;
+}
+
+.item a{
+    color: white;
+    font-size: 28px;
+    padding-left: 10px;
+    padding-top: 10px;
+    text-decoration: none;
+}
+
+.item a.active {
+    color: indigo;
+
+}

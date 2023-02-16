@@ -1,0 +1,20 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 5fr; /*определяет колонки сетки с помощью списка значений разделённого пробелами*/
+}
+
+.dialogsItem {
+    padding: 10px;
+}
+
+.dialog {
+font-size: 20px;
+}
+
+.messages {
+    padding: 10px;
+}
+
+.message {
+
+}
