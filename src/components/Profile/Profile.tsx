@@ -1,12 +1,11 @@
 import React from 'react';
-import mainImg from "./voleibol-2.jpg";
 import {MyPosts} from "./MyPosts/MyPosts";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 
 export const Profile = () => {
     return (
         <div>
-            <img src={mainImg} alt="Main image"/>
-            <div>ava + description</div> {/*Описание*/}
+            <ProfileInfo/>
             <MyPosts/>
         </div>
     );
