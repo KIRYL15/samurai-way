@@ -5,16 +5,26 @@
 
 .dialogsItem {
     padding: 10px;
+    color: bisque;
+}
+
+.dialogsItem .active {
+    color: goldenrod;
 }
 
 .dialog {
-font-size: 20px;
+    font-size: 20px;
+}
+
+.dialog img {
+    width: 50px;
 }
 
 .messages {
     padding: 10px;
 }
 
-.message {
+.messages .message {
+    color: antiquewhite;
 
 }

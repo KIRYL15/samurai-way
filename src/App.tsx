@@ -5,21 +5,33 @@ import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
 import {Route} from "react-router-dom";
-
-export function App() {
-    let data = [
-        {id: 1, name: 'Lui'},
-        {id: 2, name: 'Endi'},
-        {id: 3, name: 'Bob'},
-        {id: 4, name: 'Monika'},
-    ]
+import {AppStateType, state} from "./redux/state";
+type AppPropsType={
+    state:AppStateType
+}
+export function App(props: AppPropsType) {
+    // let profilePage = state.profilePage
+    // let dialogsData=state.dialogsPage
+    // let postData = [
+    //     {numberOfLikes: 2, postTitle: 'Hi Friends'},
+    //     {numberOfLikes: 33, postTitle: 'Hello World'},
+    //     {numberOfLikes: 34, postTitle: 'Peace for everyone'},
+    //     {numberOfLikes: 6, postTitle: 'Summer is coming'},
+    // ]
     return (
         <div className="app">
             <Header/> {/*заголовок*/}
             <Navbar/> {/*панель навигации*/}
             <div className='app-content'>
-                <Route /*exact*/ path={'/dialogs'} component={Dialogs}/> {/*exact - означает точь в точь*/}
-                <Route path={'/profile'} component={Profile}/>
+                <Route /*exact*/
+                    path={'/dialogs'}
+                    render={() => <Dialogs
+                    dialogsData={props.state.dialogsPage.dialogs}
+                    //dialogsData={state.dialogsPage.dialogs}
+                    messagesData={props.state.dialogsPage.messages}/>}/> {/*exact - означает точь в точь*/}
+                <Route
+                    path={'/profile'}
+                    render={() => <Profile postData={props.state.profilePage.posts}/>}/>
                 {/*<Dialogs/> */}{/*страница с диалогом*/}
                 {/*<Profile/>*/} {/*профиль*/}
             </div>
