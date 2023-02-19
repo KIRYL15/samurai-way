@@ -11,7 +11,7 @@ export const Post = (props: PostType) => {
         <img src={avatar_user} alt="avatar"/>
         {props.postTitle}
         <div>
-            <span>{props.numberOfLikes}</span>
+            <span>like {props.numberOfLikes}</span>
         </div>
     </div>
 };

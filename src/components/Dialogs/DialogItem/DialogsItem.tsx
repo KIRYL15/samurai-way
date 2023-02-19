@@ -14,6 +14,7 @@ export const DialogItem = (props: DialogItemType) => {
         <div className={style.dialog + ' ' + style.active}>
             <img src={ava_dialogs_1} alt="ava_dialogs_1"/>
             <NavLink to={path}> {props.name}</NavLink>
+
         </div>
     )
 }

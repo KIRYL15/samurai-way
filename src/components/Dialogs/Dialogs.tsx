@@ -2,7 +2,6 @@ import React from 'react';
 import style from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {Message} from "./Message/Message";
-import ava_dialogs_1 from './avatar_for_message_2.png'
 type DialogsType = {
     dialogsData: dialogsDataType[],
     messagesData: messagesDataType[]
@@ -30,13 +29,20 @@ export const Dialogs = (props:DialogsType) => {
 
     let dialogsElement = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
     let messagesElement = props.messagesData.map(m => <Message message={m.message}/>)
+    let onClickHandler=()=>{
+        let text=newMessageElement.current.value
+        alert(text)
+    }
+    let newMessageElement:any=React.createRef()
     return (
         <div className={style.dialogs}>
             <div className={style.dialogsItem}>
                 {/*<img src={ava_dialogs_1} alt="ava_dialogs_1"/>*/}
                 {/*{ava}*/}
-                {dialogsElement}
 
+                {dialogsElement}
+                <div><textarea ref={newMessageElement}/></div>
+                <button onClick={onClickHandler}>Add message</button>
                 {/*<DialogItem name={'Lui'} id={1}/>*/}
                 {/*<DialogItem name={'Endi'} id={2}/>*/}
                 {/*<DialogItem name={'Bob'} id={3}/>*/ }
