@@ -4,7 +4,7 @@ import React, {ChangeEvent} from 'react';
 import {ActionsTypes, addPostAC, changeNewTextAC, PostsType, StoreType} from "../../../redux/state";
 
 type MyPostsType = {
-    store: StoreType
+    store: StoreType,
     postData: PostsType[],
     dispatch: (action: ActionsTypes) => void
 }

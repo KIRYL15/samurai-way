@@ -24,6 +24,9 @@ export const App: React.FC<AppPropsType> = (props) => {
                         <Dialogs //страница с диалогом
                             dialogsData={state.dialogsPage.dialogs}
                             messagesData={state.dialogsPage.messages}
+                            store={props.store}
+                            dispatch={props.store.dispatch.bind(props.store)}
+
                         />}/> {/*exact - означает точь-в-точь*/}
                 <Route
                     path={'/profile'}
