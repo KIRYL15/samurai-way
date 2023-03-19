@@ -1,21 +1,19 @@
-import React from 'react';
 import './App.css';
+import React from 'react';
+import {Route} from "react-router-dom";
+import {StoreType} from "./redux/state";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
-import {Route} from "react-router-dom";
-import {AppStateType} from "./redux/state";
 
 type AppPropsType = {
-    state: AppStateType,
-    addPost: (postMessage: string) => void,
-    changeNewText:(newText:string)=>void
-
-
+    store: StoreType,
+    //addPost: (postMessage: string) => void,
+    //changeNewText:(newText:string)=>void
 }
 
-export function App(props: AppPropsType) {
+export const App: React.FC<AppPropsType> = (props) => {
     // let profilePage = state.profilePage
     // let dialogsData=state.dialogsPage
     // let postData = [
@@ -24,6 +22,7 @@ export function App(props: AppPropsType) {
     //     {numberOfLikes: 34, postTitle: 'Peace for everyone'},
     //     {numberOfLikes: 6, postTitle: 'Summer is coming'},
     // ]
+    const state = props.store.getState()
     return (
         <div className="app">
             <Header/> {/*заголовок*/}
@@ -31,21 +30,21 @@ export function App(props: AppPropsType) {
             <div className='app-content'>
                 <Route /*exact*/
                     path={'/dialogs'}
-                    render={() => <Dialogs
-                        dialogsData={props.state.dialogsPage.dialogs}
-                        //dialogsData={state.dialogsPage.dialogs}
-                        messagesData={props.state.dialogsPage.messages}
-
-                    />}/> {/*exact - означает точь-в-точь*/}
+                    render={() =>
+                        <Dialogs //страница с диалогом
+                            dialogsData={state.dialogsPage.dialogs}
+                            //dialogsData={state.dialogsPage.dialogs}
+                            messagesData={state.dialogsPage.messages}
+                        />}/> {/*exact - означает точь-в-точь*/}
                 <Route
                     path={'/profile'}
-                    render={() => <Profile
-                        postData={props.state.profilePage.posts}
-                        addPost={props.addPost}
-                        //changeNewText={props.changeNewText}
-                    />}/>
-                {/*<Dialogs/> */}{/*страница с диалогом*/}
-                {/*<Profile/>*/} {/*профиль*/}
+                    render={() =>
+                        <Profile  //профиль
+                            postData={state.profilePage.posts}
+                            store={props.store}
+                            addPost={props.store.addPost.bind(props.store)}
+                            changeNewText={props.store.changeNewText.bind(props.store)}
+                        />}/>
             </div>
         </div>
     );
