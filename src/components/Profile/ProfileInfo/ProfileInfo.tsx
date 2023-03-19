@@ -10,7 +10,7 @@ export const ProfileInfo = () => {
                 <img src={mainImg} alt="Main image"/>
             </div>
             <div className={style.descriptionBlock}>
-                ava + description
+                Profile Info
             </div>
             {/*Описание*/}
         </div>
