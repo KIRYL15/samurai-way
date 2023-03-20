@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import {Route} from "react-router-dom";
-import {StoreType} from "./redux/state";
+import {StoreType} from "./redux/store";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
@@ -26,7 +26,6 @@ export const App: React.FC<AppPropsType> = (props) => {
                             messagesData={state.dialogsPage.messages}
                             store={props.store}
                             dispatch={props.store.dispatch.bind(props.store)}
-
                         />}/> {/*exact - означает точь-в-точь*/}
                 <Route
                     path={'/profile'}
