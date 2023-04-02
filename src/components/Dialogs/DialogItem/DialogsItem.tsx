@@ -4,7 +4,7 @@ import style from './../Dialogs.module.css'
 import ava_dialogs_1 from "../avatar_for_message_2.png";
 
 type DialogItemType = {
-    id: number
+    id: string
     name: string
 }
 

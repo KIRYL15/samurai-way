@@ -1,33 +1,36 @@
-import {ActionsTypes, DialogsPageType} from "./store";
+import {v1} from "uuid";
+import {ActionsTypes, DialogsPageType} from "./type";
 
 export const NEW_MESSAGE_BODY = "NEW-MESSAGE-BODY"
 export const ADD_MESSAGE = "ADD_MESSAGE"
-const initialState = {
+const initialState:DialogsPageType = {
     dialogs: [
-        {id: 1, name: 'Lui',},
-        {id: 2, name: 'Endi',},
-        {id: 3, name: 'Bob',},
-        {id: 4, name: 'Monika',},
+        {id: v1(), name: 'Lui',},
+        {id: v1(), name: 'Endi',},
+        {id: v1(), name: 'Bob',},
+        {id: v1(), name: 'Monika',},
     ],
     messages: [
-        {id: 1, message: 'Hello'},
-        {id: 2, message: 'How is your'},
-        {id: 3, message: 'Hi-hi'},
+        {id: v1(), message: 'Hello'},
+        {id: v1(), message: 'How is your'},
+        {id: v1(), message: 'Hi-hi'},
     ],
     newMessageBody: "New message"
 }
-export const DialogsReducer = (state: DialogsPageType = initialState, action: ActionsTypes) => {
+export const DialogsReducer = (state= initialState, action: ActionsTypes):DialogsPageType => {
     switch (action.type) {
-        case "ADD_MESSAGE":
+        case ADD_MESSAGE:
             const newMessage = {
-                id: 6,
-                message: action.newMessageBody,
+                id: v1(),
+                message: state.newMessageBody,
             }
+            state={...state, messages:[newMessage,...state.messages]}
+            //state.messages.push(newMessage)
             state.newMessageBody = ""
-            state.messages.push(newMessage)
             return state;
-        case "NEW-MESSAGE-BODY":
-            state.newMessageBody = action.body;
+        case NEW_MESSAGE_BODY:
+            state={...state, newMessageBody: action.body}
+            //state.newMessageBody = action.body;
             return state;
         default:
             return state
@@ -35,14 +38,16 @@ export const DialogsReducer = (state: DialogsPageType = initialState, action: Ac
 }
 
 export const addMessageAC = (newMessageBody: string) => {
+    debugger
     return {
         type: ADD_MESSAGE,
-        newMessageBody: newMessageBody
+        newMessageBody
     } as const
 }
 export const changeMessageBodyAC = (body: string) => {
+    debugger
     return {
         type: NEW_MESSAGE_BODY,
-        body: body
+        body
     } as const
 }

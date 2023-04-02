@@ -1,18 +1,22 @@
 import './App.css';
 import React from 'react';
+import {ActionsTypes} from "./redux/type";
 import {Route} from "react-router-dom";
-import {StoreType} from "./redux/store";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Dialogs/Dialogs";
+import {AppStateType} from "./redux/redux-store";
 
 type AppPropsType = {
-    store: StoreType,
+
+    dispatch: (action: ActionsTypes) => void
+    state: AppStateType
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
-    const state = props.store.getState()
+    //debugger
+    //const state = props.store.getState()
     return (
         <div className="app">
             <Header/> {/*заголовок*/}
@@ -22,18 +26,16 @@ export const App: React.FC<AppPropsType> = (props) => {
                     path={'/dialogs'}
                     render={() =>
                         <Dialogs //страница с диалогом
-                            dialogsData={state.dialogsPage.dialogs}
-                            messagesData={state.dialogsPage.messages}
-                            store={props.store}
-                            dispatch={props.store.dispatch.bind(props.store)}
+                            dialogsData={props.state.dialogsPage}
+                            dispatch={props.dispatch}
                         />}/> {/*exact - означает точь-в-точь*/}
                 <Route
                     path={'/profile'}
                     render={() =>
                         <Profile  //профиль
-                            postData={state.profilePage.posts}
-                            store={props.store}
-                            dispatch={props.store.dispatch.bind(props.store)}
+                            postData={props.state.profilePage.posts}
+
+                            dispatch={props.dispatch}
                         />}/>
             </div>
         </div>

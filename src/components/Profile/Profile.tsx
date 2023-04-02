@@ -1,10 +1,10 @@
 import React from 'react';
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ActionsTypes, PostsType, StoreType} from "../../redux/store";
+import {ActionsTypes, PostsType, } from "../../redux/type";
 
 type ProfileType = {
-    store:StoreType,
+    //store:StoreType,
     postData: PostsType[],
     //addPost:(postMessage: string) => void,
     //changeNewText:(newText: string)=>void,
@@ -12,13 +12,14 @@ type ProfileType = {
 }
 
 export const Profile:React.FC<ProfileType> = (props) => {
+    debugger
     return (
         <div>
             <ProfileInfo/>
             <MyPosts
                 dispatch={props.dispatch}
                 postData={props.postData}
-                store={props.store}
+                //store={props.store}
                 //addPost={props.addPost}
                 //changeNewText={props.changeNewText}
              />

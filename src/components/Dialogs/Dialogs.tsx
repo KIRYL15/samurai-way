@@ -1,32 +1,24 @@
-import React, {ChangeEvent} from 'react';
 import style from './Dialogs.module.css'
+import React, {ChangeEvent} from 'react';
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogsItem";
-import {ActionsTypes, StoreType} from "../../redux/store";
+import {ActionsTypes, DialogsPageType, } from "../../redux/type";
 import {addMessageAC, changeMessageBodyAC} from "../../redux/dialogs-reducer";
 
 type DialogsType = {
-    dialogsData: dialogsDataType[],
-    messagesData: messagesDataType[],
-    store:StoreType,
+    dialogsData: DialogsPageType,
     dispatch: (action: ActionsTypes) => void
 }
-type dialogsDataType = {
-    id: number,
-    name: string
-}
-type messagesDataType = {
-    message: string
-}
+
 export const Dialogs = (props: DialogsType) => {
 
-    let dialogsElement = props.dialogsData.map(d => <DialogItem name={d.name} id={d.id}/>)
-    let messagesElement = props.messagesData.map(m => <Message message={m.message}/>)
-    let onClickHandler = () => {
-        props.dispatch(addMessageAC(props.store._state.dialogsPage.newMessageBody))
+    let dialogsElement = props.dialogsData.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    let messagesElement = props.dialogsData.messages.map(m => <Message key={m.id} message={m.message}/>)
+    let onSendMessageClick = () => {
+        props.dispatch(addMessageAC(props.dialogsData.newMessageBody))
     }
 
-    const onChangeHandler = (event:ChangeEvent<HTMLTextAreaElement>) => {
+    const onNewMessageChange = (event:ChangeEvent<HTMLTextAreaElement>) => {
         props.dispatch(changeMessageBodyAC(event.currentTarget.value))
     }
     return (
@@ -34,12 +26,11 @@ export const Dialogs = (props: DialogsType) => {
             <div className={style.dialogsItem}>
                 {dialogsElement}
                 <textarea
-                    value={props.store._state.dialogsPage.newMessageBody}
+                    value={props.dialogsData.newMessageBody}
                     placeholder={"Enter a new message"}
-                    onChange={onChangeHandler}
-                />
+                    onChange={onNewMessageChange}/>
                 <button
-                    onClick={onClickHandler}>Add message
+                    onClick={onSendMessageClick}>Add message
                 </button>
             </div>
             <div className={style.messages}>
