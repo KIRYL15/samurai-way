@@ -4,7 +4,7 @@ import {ActionsTypes, PostsType, ProfilePageType} from "./type";
 export const ADD_POST = "ADD-POST"
 export const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT"
 const initialState: ProfilePageType = {
-    newPostText: 'Новый пост',
+    newPostText: '',
     posts: [
         {id: v1(), numberOfLikes: 2, postTitle: 'Hi Friends'},
         {id: v1(), numberOfLikes: 33, postTitle: 'Hello World'},

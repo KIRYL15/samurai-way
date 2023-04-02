@@ -2,11 +2,10 @@ import React from 'react';
 import {App} from "./App";
 import ReactDOM from 'react-dom';
 import {AppStateType} from "./redux/type";
-import {BrowserRouter} from "react-router-dom";
 import {store} from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
 
 let rerenderEntireTree = (state: AppStateType) => {
-    //debugger
     ReactDOM.render(
         <BrowserRouter>
             <App

@@ -15,7 +15,7 @@ const initialState:DialogsPageType = {
         {id: v1(), message: 'How is your'},
         {id: v1(), message: 'Hi-hi'},
     ],
-    newMessageBody: "New message"
+    newMessageBody: ""
 }
 export const DialogsReducer = (state= initialState, action: ActionsTypes):DialogsPageType => {
     switch (action.type) {
@@ -25,12 +25,10 @@ export const DialogsReducer = (state= initialState, action: ActionsTypes):Dialog
                 message: state.newMessageBody,
             }
             state={...state, messages:[newMessage,...state.messages]}
-            //state.messages.push(newMessage)
             state.newMessageBody = ""
             return state;
         case NEW_MESSAGE_BODY:
             state={...state, newMessageBody: action.body}
-            //state.newMessageBody = action.body;
             return state;
         default:
             return state
