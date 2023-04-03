@@ -36,14 +36,12 @@ export const DialogsReducer = (state= initialState, action: ActionsTypes):Dialog
 }
 
 export const addMessageAC = (newMessageBody: string) => {
-    debugger
     return {
         type: ADD_MESSAGE,
         newMessageBody
     } as const
 }
 export const changeMessageBodyAC = (body: string) => {
-    debugger
     return {
         type: NEW_MESSAGE_BODY,
         body
