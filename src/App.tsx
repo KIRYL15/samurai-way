@@ -8,7 +8,7 @@ import {Profile} from "./components/Profile/Profile";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
-store:StoreType
+    //store: StoreType
 }
 
 export const App: React.FC<AppPropsType> = (props) => {
@@ -23,15 +23,15 @@ export const App: React.FC<AppPropsType> = (props) => {
                     render={() =>
                         <DialogsContainer
                             //страница с диалогом
-                            store={props.store}
-                           /* dialogsData={props.state.dialogsPage}
-                            dispatch={props.dispatch}*/
+                            /*store={props.store}*/
+                            /* dialogsData={props.state.dialogsPage}
+                             dispatch={props.dispatch}*/
                         />}/> {/*exact - означает точь-в-точь*/}
                 <Route
                     path={'/profile'}
                     render={() =>
                         <Profile  //профиль
-                            store={props.store}
+                            /*store={props.store}*/
                         />}/>
             </div>
         </div>
