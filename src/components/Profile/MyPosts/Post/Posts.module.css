@@ -1,15 +1,17 @@
 .content {
     grid-area: content;
-    background-color: hotpink;
+    background-color: lightskyblue;
 }
 
 .item {
     font-size: 30px;
     color: maroon;
 }
-.item img{
+
+.item img {
     width: 60px;
 }
+
 .posts {
 
 }

@@ -35,10 +35,10 @@ export const DialogsReducer = (state= initialState, action: ActionsTypes):Dialog
     }
 }
 
-export const addMessageAC = (newMessageBody: string) => {
+export const addMessageAC = () => {
     return {
         type: ADD_MESSAGE,
-        newMessageBody
+
     } as const
 }
 export const changeMessageBodyAC = (body: string) => {

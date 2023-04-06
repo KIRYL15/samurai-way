@@ -32,10 +32,10 @@ export const ProfileReducer = (state= initialState, action: ActionsTypes):Profil
     }
 }
 
-export const addPostAC = (newPostText: string) => {
+export const addPostAC = () => {
     return {
         type: ADD_POST,
-        newPostText: newPostText
+
     } as const
 }
 export const changeNewTextAC = (newText: string) => {

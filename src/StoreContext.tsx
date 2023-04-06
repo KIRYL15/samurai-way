@@ -1,4 +1,7 @@
+
+
 import React from "react";
+/*
 import {StoreType} from "./redux/type";
 
 export const StoreContext = React.createContext({} as StoreType)
@@ -14,3 +17,4 @@ export const Provider = (props: ProviderType) => {
         </StoreContext.Provider>
     )
 }
+*/

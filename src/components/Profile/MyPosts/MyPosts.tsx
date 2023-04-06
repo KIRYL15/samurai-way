@@ -2,16 +2,17 @@ import {Post} from "./Post/Post";
 import style from './MyPosts.module.css';
 import React, {ChangeEvent} from 'react';
 import {PostsType,} from "../../../redux/type";
+import {MePostsPropsType} from "./MyPostsContainer";
 
 type MyPostsType = {
     onPostChange: (text: string) => void
-    addPosts: (postMessage: string) => void
+    addPosts: () => void
     posts: PostsType[]
     newPostText: string
     //postData: ProfilePageType,
     //dispatch: (action: ActionsTypes) => void
 }
-export const MyPosts: React.FC<MyPostsType> = (props) => {
+export const MyPosts: React.FC<MePostsPropsType> = (props) => {
     let postsElement = props.posts.map((data) =>
         <Post
             key={data.id}
@@ -19,8 +20,7 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
             postTitle={data.postTitle}/>
     )
     const addPost = () => {
-        let postMessage = props.newPostText
-        props.addPosts(postMessage)
+        props.addPosts()
     }
     /*props.dispatch(addPostAC(props.postData.newPostText))*/
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
