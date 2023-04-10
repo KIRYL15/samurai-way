@@ -1,9 +1,11 @@
 import {addMessageAC, changeMessageBodyAC} from "./dialogs-reducer";
-import {addPostAC, changeNewTextAC} from "./profile-reducer";
+import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
+import {followAC, setUsersAC, unFollowAC} from "./users-reducer";
 
 export type AppStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
+    usersPage: UsersType
 }
 export type ProfilePageType = {
     posts: PostsType[],
@@ -35,8 +37,25 @@ export type StoreType = {
     getState: () => AppStateType,
     dispatch: (action: ActionsTypes) => void
 };
+export type UsersType = {
+    users: Array<UserType>
+}
+export type UserType = {
+    id: string,
+    urlPhoto: string,
+    followed: boolean,
+    fullName: string,
+    status: string,
+    location: {
+        city: string,
+        country: string
+    }
+}
 export type ActionsTypes =
     | ReturnType<typeof addMessageAC>
     | ReturnType<typeof changeMessageBodyAC>
     | ReturnType<typeof addPostAC>
-    | ReturnType<typeof changeNewTextAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>

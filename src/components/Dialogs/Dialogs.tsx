@@ -22,7 +22,6 @@ export const Dialogs:React.FC<DialogsPropsType> = (props) => {
         //let addMessage = props.dialogsPage.newMessageBody
         props.sendMessage()
         //console.log(newMessage)
-
         //props.dispatch(addMessageAC(props.dialogsData.newMessageBody))
     }
     const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -30,7 +29,6 @@ export const Dialogs:React.FC<DialogsPropsType> = (props) => {
         //let body = event.currentTarget.value
         props.changeMessageBody(event.currentTarget.value)
         //console.log(body)
-
         //props.dispatch(changeMessageBodyAC(event.currentTarget.value))}
     }
 

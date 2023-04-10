@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {ActionsTypes, PostsType, ProfilePageType} from "./type";
 
 export const ADD_POST = "ADD-POST"
-export const CHANGE_NEW_TEXT = "CHANGE-NEW-TEXT"
+export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 const initialState: ProfilePageType = {
     newPostText: '',
     posts: [
@@ -12,18 +12,18 @@ const initialState: ProfilePageType = {
         {id: v1(), numberOfLikes: 6, postTitle: 'Summer is coming'},
     ],
 }
-export const ProfileReducer = (state= initialState, action: ActionsTypes):ProfilePageType => {
+export const ProfileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostsType = {
                 id: v1(),
-                postTitle: state.newPostText,
                 numberOfLikes: 0,
+                postTitle: state.newPostText,
             };
-            state = {...state, posts: [newPost, ...state.posts]}
+            state = {...state, posts: [...state.posts, newPost]}
             state.newPostText = ""
             return state;
-        case CHANGE_NEW_TEXT:
+        case UPDATE_NEW_POST_TEXT:
             state = {...state, newPostText: action.newText}
             //state.newPostText = action.newText
             return state;
@@ -38,9 +38,9 @@ export const addPostAC = () => {
 
     } as const
 }
-export const changeNewTextAC = (newText: string) => {
+export const updateNewPostTextAC = (newText: string) => {
     return {
-        type: CHANGE_NEW_TEXT,
+        type: UPDATE_NEW_POST_TEXT,
         newText: newText
     } as const
 }

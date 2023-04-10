@@ -49,7 +49,6 @@ export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {
     dialogsPage: DialogsPageType
 }
-
 type mapDispatchToPropsType = {
     changeMessageBody: (body: string) => void,
     sendMessage: () => void
