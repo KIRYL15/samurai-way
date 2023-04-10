@@ -1,17 +1,21 @@
 {
   "files": {
-    "main.css": "/samurai-way/static/css/main.bc0c07cb.css",
-    "main.js": "/samurai-way/static/js/main.06ea008d.js",
+    "main.css": "/samurai-way/static/css/main.def5b973.css",
+    "main.js": "/samurai-way/static/js/main.3087b908.js",
     "static/media/voleibol-2.jpg": "/samurai-way/static/media/voleibol-2.428b650d1cb8d4e00930.jpg",
     "static/media/Avatar_user.png": "/samurai-way/static/media/Avatar_user.33d3e696a011a454df2b.png",
     "static/media/Logo.png": "/samurai-way/static/media/Logo.5c7944a4e1ee13d7a60a.png",
+    "static/media/ava_6.png": "/samurai-way/static/media/ava_6.5493a0d1aa433d61f956.png",
+    "static/media/ava_2_anders.png": "/samurai-way/static/media/ava_2_anders.d1fb6f14144989e9dea0.png",
+    "static/media/ava_3 .png": "/samurai-way/static/media/ava_3 .71d28c97c536bab55aa1.png",
+    "static/media/ava_1_lui.png": "/samurai-way/static/media/ava_1_lui.11d749691c68e537e7d2.png",
     "static/media/avatar_for_message_2.png": "/samurai-way/static/media/avatar_for_message_2.1d10381b15a0703f0f14.png",
     "index.html": "/samurai-way/index.html",
-    "main.bc0c07cb.css.map": "/samurai-way/static/css/main.bc0c07cb.css.map",
-    "main.06ea008d.js.map": "/samurai-way/static/js/main.06ea008d.js.map"
+    "main.def5b973.css.map": "/samurai-way/static/css/main.def5b973.css.map",
+    "main.3087b908.js.map": "/samurai-way/static/js/main.3087b908.js.map"
   },
   "entrypoints": [
-    "static/css/main.bc0c07cb.css",
-    "static/js/main.06ea008d.js"
+    "static/css/main.def5b973.css",
+    "static/js/main.3087b908.js"
   ]
 }
