@@ -1,15 +1,19 @@
 import React from 'react';
 import {UsersTypeProps} from "./UsersContainer";
-import {v1} from "uuid";
-import ava_1 from "./ava_1_lui.png";
-import ava_2 from "./ava_2_anders.png";
-import ava_3 from "./ava_6.png";
-import ava_4 from "./ava_3 .png";
+import axios from "axios";
+import usersPhoto from "./ava_1_lui.png";
 
 
 export const Users: React.FC<UsersTypeProps> = (props) => {
+    let getUsers = () => {
     if (props.usersPage.users.length === 0) {
-        props.setUsers([
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                props.setUsers(response.data.items)
+            })
+
+    }}
+    /*props.setUsers([
             {
                 id: v1(),
                 urlPhoto: ava_1,
@@ -42,30 +46,36 @@ export const Users: React.FC<UsersTypeProps> = (props) => {
                 status: 'I am boss too',
                 location: {city: "Oslo", country: "Norway"}
             },
-        ])
-    }
+        ])*/
     return (
         <div>
+            <button onClick={getUsers}>Get users</button>
+
             {
                 props.usersPage.users.map((users) => (
                     <div key={users.id}>
                         <span>
                             <div>
-                            <img src={users.urlPhoto} alt="avatarUser"/>
+                            <img src={users.photos.small ? users.photos.small : usersPhoto}
+                                 alt="avatarUser"/>
                         </div>
                             <div>
-                                {users.followed ? <button onClick={() => {props.unFollow(users.id)}}>UnFollow</button>
-                                    : <button onClick={() => {props.follow(users.id)}}>Follow</button>}
+                                {users.followed ? <button onClick={() => {
+                                        props.unFollow(users.id)
+                                    }}>UnFollow</button>
+                                    : <button onClick={() => {
+                                        props.follow(users.id)
+                                    }}>Follow</button>}
                             </div>
                         </span>
                         <span>
                                 <span>
-                                    <div>{users.fullName}</div>
+                                    <div>{users.name}</div>
                                     <div>{users.status}</div>
                                 </span>
                                 <span>
-                                    <div>{users.location.country}</div>
-                                    <div>{users.location.city}</div>
+                                  {/*  <div>{users.location.country}</div>
+                                    <div>{users.location.city}</div>*/}
                                 </span>
                         </span>
                     </div>

@@ -1,10 +1,10 @@
 import React from 'react';
-import {Users} from "./Users";
 import {Dispatch} from "redux";
 import {connect} from "react-redux";
-import {UsersType, UserType} from "../../redux/type";
+import {UsersClass} from "./UsersClass";
 import {AppStateType} from "../../redux/redux-store";
-import {followAC, setUsersAC, unFollowAC, UsersReducer} from "../../redux/users-reducer";
+import {UsersType, UserType} from "../../redux/type";
+import {followAC, setUsersAC, unFollowAC} from "../../redux/users-reducer";
 
 export type UsersTypeProps = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
@@ -34,4 +34,4 @@ let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Users)
+export default connect(mapStateToProps, mapDispatchToProps)(UsersClass)
