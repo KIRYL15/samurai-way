@@ -1,9 +1,4 @@
-import {v1} from "uuid";
 import {ActionsTypes, UsersType, UserType} from "./type";
-import ava_1 from '../components/Users/ava_1_lui.png'
-import ava_2 from '../components/Users/ava_2_anders.png'
-import ava_3 from '../components/Users/ava_6.png'
-import ava_4 from '../components/Users/ava_3 .png'
 
 export const UNFOLLOW = "UNFOLLOW"
 export const FOLLOW = "FOLLOW"
@@ -33,7 +28,7 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersT
                 })
             }
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...action.users]}
 
         default:
             return state;

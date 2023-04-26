@@ -1,48 +1,38 @@
 import React from 'react';
 import usersPhotoClass from "./ava_2_anders.png";
 import axios from "axios";
-import {UserType} from "../../redux/type";
 import {UsersTypeProps} from "./UsersContainer";
 
 export class UsersClass extends React.Component<UsersTypeProps> {
-    getUsers = () => {
-        if (this.props.usersPage.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(response => {
-                    this.props.setUsers(response.data.items);
-                })
-        }
+    componentDidMount() {
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                this.props.setUsers(response.data.items);
+            })
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.getUsers}>Get users</button>
-                {
-                    this.props.usersPage.users.map((users: UserType) => (
-                        <div key={users.id}>
+                {this.props.usersPage.users.map(u => (
+                        <div key={u.id}>
                         <span>
-                            <div>
-                            <img src={users.photos.small ? users.photos.small : usersPhotoClass}
+                            <img src={u.photos.small !=null ? u.photos.small : usersPhotoClass}
                                  alt="avatarUser"/>
-                        </div>
                             <div>
-                                {users.followed ? <button onClick={() => {
-                                        this.props.unFollow(users.id)
-                                    }}>UnFollow</button>
-                                    : <button onClick={() => {
-                                        this.props.follow(users.id)
-                                    }}>Follow</button>}
+                                {u.followed ?
+                                    <button onClick={() => {this.props.unFollow(u.id)}}>UnFollow</button> :
+                                    <button onClick={() => {this.props.follow(u.id)}}>Follow</button>}
                             </div>
                         </span>
                             <span>
                                 <span>
-                                    <div>{users.name}</div>
-                                    <div>{users.status}</div>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
                                 </span>
                                 <span>
-                                  {/*<div>{users.location.country}</div>
-                                    <div>{users.location.city}</div>*/}
+                                  <div>{"u.location.country"}</div>
+                                    <div>{"u.location.city"}</div>
                                       </span>
                                       </span>
                         </div>
@@ -53,6 +43,14 @@ export class UsersClass extends React.Component<UsersTypeProps> {
     }
 }
 
+/* getUsers = () => {
+     if (this.props.usersPage.users.length === 0) {
+         axios.get("https://social-network.samuraijs.com/api/1.0/users")
+             .then(response => {
+                 this.props.setUsers(response.data.items);
+             })
+     }
+ }*/
 /*
 /!*
 export const Users: React.FC<UsersTypeProps> = (props) => {

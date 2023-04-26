@@ -1,7 +1,7 @@
 import React from 'react';
-import {UsersTypeProps} from "./UsersContainer";
 import axios from "axios";
 import usersPhoto from "./ava_1_lui.png";
+import {UsersTypeProps} from "./UsersContainer";
 
 
 export const Users: React.FC<UsersTypeProps> = (props) => {
@@ -13,65 +13,32 @@ export const Users: React.FC<UsersTypeProps> = (props) => {
             })
 
     }}
-    /*props.setUsers([
-            {
-                id: v1(),
-                urlPhoto: ava_1,
-                followed: true,
-                fullName: "Dmitry",
-                status: 'I am boss',
-                location: {city: "Minsk", country: "Belarus"}
-            },
-            {
-                id: v1(),
-                urlPhoto: ava_2,
-                followed: false,
-                fullName: "Igor",
-                status: 'I am user',
-                location: {city: "Mogilev", country: "Belarus"}
-            },
-            {
-                id: v1(),
-                urlPhoto: ava_3,
-                followed: false,
-                fullName: "Nastya",
-                status: 'I am lady',
-                location: {city: "Moscow", country: "Russia"}
-            },
-            {
-                id: v1(),
-                urlPhoto: ava_4,
-                followed: true,
-                fullName: "Nikolay",
-                status: 'I am boss too',
-                location: {city: "Oslo", country: "Norway"}
-            },
-        ])*/
+
     return (
         <div>
             <button onClick={getUsers}>Get users</button>
 
             {
-                props.usersPage.users.map((users) => (
-                    <div key={users.id}>
+                props.usersPage.users.map(u => (
+                    <div key={u.id}>
                         <span>
                             <div>
-                            <img src={users.photos.small ? users.photos.small : usersPhoto}
+                            <img src={u.photos.small ? u.photos.small : usersPhoto}
                                  alt="avatarUser"/>
                         </div>
                             <div>
-                                {users.followed ? <button onClick={() => {
-                                        props.unFollow(users.id)
+                                {u.followed ? <button onClick={() => {
+                                        props.unFollow(u.id)
                                     }}>UnFollow</button>
                                     : <button onClick={() => {
-                                        props.follow(users.id)
+                                        props.follow(u.id)
                                     }}>Follow</button>}
                             </div>
                         </span>
                         <span>
                                 <span>
-                                    <div>{users.name}</div>
-                                    <div>{users.status}</div>
+                                    <div>{u.name}</div>
+                                    <div>{u.status}</div>
                                 </span>
                                 <span>
                                   {/*  <div>{users.location.country}</div>
