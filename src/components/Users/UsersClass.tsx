@@ -2,30 +2,59 @@ import React from 'react';
 import usersPhotoClass from "./ava_2_anders.png";
 import axios from "axios";
 import {UsersTypeProps} from "./UsersContainer";
+import s from "./Users.module.css";
 
 export class UsersClass extends React.Component<UsersTypeProps> {
     componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setTotalUsersCount(response.data.totalCount);
+
+            })
+    }
+    onPageChanged = (pageNumber:number)=>{
+        this.props.setCurrentPage(pageNumber);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items);
             })
     }
-
     render() {
+        let pageCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
+        let pages = []
+        for (let i = 1; i <= pageCount; i++) {
+            pages.push(i)
+        }
+
         return (
+
             <div>
+                <div className={s.allPageType}>{
+                    pages.map((p, index) => {
+                        return <span
+                            key={index}
+                            className={this.props.currentPage === p ? s.selectedPage : ''}
+                            onClick={()=>this.onPageChanged(p)}>{p}</span>
+                    })
+                }
+                </div>
                 {this.props.usersPage.users.map(u => (
-                        <div key={u.id}>
+                    <div key={u.id}>
                         <span>
-                            <img src={u.photos.small !=null ? u.photos.small : usersPhotoClass}
+                            <img src={u.photos.small != null ? u.photos.small : usersPhotoClass}
                                  alt="avatarUser"/>
                             <div>
                                 {u.followed ?
-                                    <button onClick={() => {this.props.unFollow(u.id)}}>UnFollow</button> :
-                                    <button onClick={() => {this.props.follow(u.id)}}>Follow</button>}
+                                    <button onClick={() => {
+                                        this.props.unFollow(u.id)
+                                    }}>UnFollow</button> :
+                                    <button onClick={() => {
+                                        this.props.follow(u.id)
+                                    }}>Follow</button>}
                             </div>
                         </span>
-                            <span>
+                        <span>
                                 <span>
                                     <div>{u.name}</div>
                                     <div>{u.status}</div>
@@ -35,8 +64,8 @@ export class UsersClass extends React.Component<UsersTypeProps> {
                                     <div>{"u.location.city"}</div>
                                       </span>
                                       </span>
-                        </div>
-                    ))
+                    </div>
+                ))
                 }
             </div>
         )

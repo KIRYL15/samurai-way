@@ -3,9 +3,14 @@ import {ActionsTypes, UsersType, UserType} from "./type";
 export const UNFOLLOW = "UNFOLLOW"
 export const FOLLOW = "FOLLOW"
 export const SET_USERS = "SET-USERS"
+export const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
+export const SET_USERS_TOTAL_COUNT = "SET-USERS-TOTAL-COUNT"
 
 const initialState: UsersType = {
     users: [],
+    pageSize: 10,
+    totalUsersCount: 0,
+    currentPage: 4 //текущая страница
 }
 export const UsersReducer = (state = initialState, action: ActionsTypes): UsersType => {
     switch (action.type) {
@@ -29,7 +34,10 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersT
             }
         case "SET-USERS":
             return {...state, users: [...action.users]}
-
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.currentPage}
+        case "SET-USERS-TOTAL-COUNT":
+            return {...state, totalUsersCount:action.totalCount}
         default:
             return state;
     }
@@ -53,5 +61,16 @@ export const setUsersAC = (users: Array<UserType>) => {
         users
     } as const
 }
+export const setCurrentPageAC = (currentPage:number) => {
+    return {
+        type: SET_CURRENT_PAGE,
+        currentPage
+    } as const
+}
 
-
+export const setUsersTotalCountAC = (totalCount:number) => {
+    return {
+        type: SET_USERS_TOTAL_COUNT,
+        totalCount
+    } as const
+}
