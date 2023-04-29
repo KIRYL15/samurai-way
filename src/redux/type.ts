@@ -1,15 +1,46 @@
 import {addMessageAC, changeMessageBodyAC} from "./dialogs-reducer";
-import {addPostAC, updateNewPostTextAC} from "./profile-reducer";
-import {followAC, setCurrentPageAC, setUsersAC, setUsersTotalCountAC, unFollowAC} from "./users-reducer";
+import {addPostAC, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer";
+import {
+    followAC,
+    setCurrentPageAC,
+    setToogleIsFetchingAC,
+    setUsersAC,
+    setUsersTotalCountAC,
+    unFollowAC
+} from "./users-reducer";
 
 export type AppStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
     usersPage: UsersType
 }
+
+export type ContactType = {
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+}
+export type PhotoType=
+    { small: string; large: string}
+export type ProfileType = {
+    aboutMe?:string
+    contacts?: ContactType
+    lookingForAJob?: boolean
+    lookingForAJobDescription?: string
+    fullName?: string
+    userId?: number
+    photos: PhotoType
+}
 export type ProfilePageType = {
     posts: PostsType[],
     newPostText: string,
+    profile:ProfileType
+
 };
 export type DialogsPageType = {
     dialogs: DialogsType[],
@@ -41,7 +72,9 @@ export type UsersType = {
     users: Array<UserType>,
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
+    currentPage: number,
+    isFetching: boolean
+
 }
 export type UserType = {
     id: string,
@@ -64,3 +97,5 @@ export type ActionsTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setUsersTotalCountAC>
+    | ReturnType<typeof setToogleIsFetchingAC>
+    | ReturnType<typeof setUserProfileAC>

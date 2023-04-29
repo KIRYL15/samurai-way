@@ -3,18 +3,15 @@ import React from 'react';
 import {Route} from "react-router-dom";
 import {Header} from "./components/Header/Header";
 import {Navbar} from "./components/Navbar/Navbar";
-import {Profile} from "./components/Profile/Profile";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
-//import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
-/*type AppPropsType = {
-    store: StoreType
-}*/
 
 export const App/*: React.FC<AppPropsType>*/ = (/*props*/) => {
 
     return (
+
         <div className="app">
             <Header/> {/*заголовок*/}
             <Navbar/> {/*панель навигации*/}
@@ -28,13 +25,14 @@ export const App/*: React.FC<AppPropsType>*/ = (/*props*/) => {
                          dispatch={props.dispatch}*//>}
                 /> {/*exact - означает точь-в-точь*/}
                 <Route
+
                     path={'/profile'}
-                    render={() => <Profile  //профиль
+                    render={() => <ProfileContainer  //профиль
                         /*store={props.store}*//>}
                 />
                 <Route
                     path={'/users'}
-                    render={() => <UsersContainer/>}
+                    render={() => <UsersContainer />}
                 />
             </div>
         </div>
