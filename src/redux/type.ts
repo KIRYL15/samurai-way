@@ -85,7 +85,7 @@ export type UsersType = {
 
 }
 export type UserType = {
-    id: string,
+    id: number,
     photos: { small: string | null, large: string | null },
     followed: boolean,
     name: string,

@@ -47,13 +47,13 @@ export const UsersReducer = (state = initialState, action: ActionsTypes): UsersT
     }
 }
 
-export const followAC = (userId: string) => {
+export const followAC = (userId: number) => {
     return {
         type: FOLLOW,
         userId
     } as const
 }
-export const unFollowAC = (userId: string) => {
+export const unFollowAC = (userId: number) => {
     return {
         type: UNFOLLOW,
         userId

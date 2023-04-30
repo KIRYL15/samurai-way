@@ -1,4 +1,3 @@
-import axios from "axios";
 import React from 'react';
 import {Users} from "./Users";
 import {connect} from "react-redux";
@@ -13,6 +12,7 @@ import {
     setUsersTotalCountAC,
     unFollowAC
 } from "../../redux/users-reducer";
+import {userAPI} from "../../api/api";
 
 export type UsersTypeProps = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
@@ -23,8 +23,8 @@ type MapStateToPropsType = {
     isFetching: boolean,
 }
 type MapDispatchToPropsType = {
-    follow: (userId: string) => void,
-    unFollow: (userId: string) => void,
+    follow: (userId: number) => void,
+    unFollow: (userId: number) => void,
     setUsers: (users: Array<UserType>) => void,
     setCurrentPage: (page: number) => void,
     setTotalUsersCount: (totalCount: number) => void,
@@ -43,24 +43,21 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 export class UsersContainer extends React.Component<UsersTypeProps> {
     componentDidMount() {
         this.props.toogleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials:true
-        })
-            .then(response => {
+        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.toogleIsFetching(false)
-                this.props.setUsers(response.data.items);
-                this.props.setTotalUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setTotalUsersCount(data.totalCount);
             })
     }
+
     onPageChanged = (pageNumber: number) => {
         this.props.toogleIsFetching(true)
         this.props.setCurrentPage(pageNumber);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
-            withCredentials:true
-        })
-            .then(response => {
+        userAPI.getUsers(pageNumber, this.props.pageSize)
+            .then(data => {
                 this.props.toogleIsFetching(false)
-                this.props.setUsers(response.data.items);
+                this.props.setUsers(data.items);
             })
     }
 
