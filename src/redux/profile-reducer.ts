@@ -12,12 +12,7 @@ const initialState: ProfilePageType = {
         {id: v1(), numberOfLikes: 34, postTitle: 'Peace for everyone'},
         {id: v1(), numberOfLikes: 6, postTitle: 'Summer is coming'},
     ],
-    profile:{
-        photos:{
-            small:'',
-            large:''
-        }
-    }
+    profile:null
 }
 
 export const ProfileReducer = (state = initialState, action: ActionsTypes): ProfilePageType => {
@@ -26,25 +21,26 @@ export const ProfileReducer = (state = initialState, action: ActionsTypes): Prof
             const newPost: PostsType = {
                 id: v1(),
                 numberOfLikes: 0,
-                postTitle: state.newPostText,
+                postTitle: action.postMessage,
             };
-            state = {...state, posts: [...state.posts, newPost]}
-            state.newPostText = ""
-            return state;
+           /* state = {...state, posts: [...state.posts, newPost]}
+            state.newPostText = ""*/
+            return {...state, posts:[...state.posts, newPost], newPostText:''};
         case UPDATE_NEW_POST_TEXT:
             state = {...state, newPostText: action.newText}
             //state.newPostText = action.newText
             return state;
-        case "SET-USER-PROFILE":
+        case SET_USER_PROFILE:
             return {...state, profile: action.profile}
         default:
             return state;
     }
 }
 
-export const addPostAC = () => {
+export const addPostAC = (postMessage:string) => {
     return {
         type: ADD_POST,
+        postMessage
     } as const
 }
 export const updateNewPostTextAC = (newText: string) => {
@@ -54,6 +50,7 @@ export const updateNewPostTextAC = (newText: string) => {
     } as const
 }
 export const setUserProfileAC = (profile: ProfileType) => {
+
     return {
         type: SET_USER_PROFILE,
         profile

@@ -1,8 +1,19 @@
 .header {
     grid-area: header;
-    background-color: springgreen;
+    background-color: #89e5b4;
 }
+
 .header img {
     width: 60px;
     padding: 10px;
+}
+
+.loginBlock {
+    float: right;
+    font-size: 25px;
+    padding: 10px;
+    font-family:Calibri;
+}
+.loginBlock a{
+    color:antiquewhite;
 }

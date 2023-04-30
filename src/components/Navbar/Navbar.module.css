@@ -1,10 +1,12 @@
 .nav {
+
     grid-area: nav;
-    background-color: lightskyblue;
+    background-color: #b1f3ba;
 }
 
 .item a{
-    color: white;
+    font-family: Calibri;
+    color: #1a6565;
     font-size: 28px;
     padding-left: 10px;
     padding-top: 10px;

@@ -8,11 +8,19 @@ import {
     setUsersTotalCountAC,
     unFollowAC
 } from "./users-reducer";
+import {setAuthUserDataAC} from "./auth-reducer";
 
 export type AppStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
     usersPage: UsersType
+}
+export type AuthStateType = {
+    id: null | number,
+    email: null | string,
+    login: null | string,
+    isAuth:boolean
+
 }
 
 export type ContactType = {
@@ -39,7 +47,7 @@ export type ProfileType = {
 export type ProfilePageType = {
     posts: PostsType[],
     newPostText: string,
-    profile:ProfileType
+    profile:null |ProfileType
 
 };
 export type DialogsPageType = {
@@ -99,3 +107,4 @@ export type ActionsTypes =
     | ReturnType<typeof setUsersTotalCountAC>
     | ReturnType<typeof setToogleIsFetchingAC>
     | ReturnType<typeof setUserProfileAC>
+    | ReturnType<typeof setAuthUserDataAC>

@@ -1,19 +1,17 @@
 import './App.css';
 import React from 'react';
 import {Route} from "react-router-dom";
-import {Header} from "./components/Header/Header";
+import HeaderContainer from "./components/Header/HeaderContainer";
 import {Navbar} from "./components/Navbar/Navbar";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 
 
-export const App/*: React.FC<AppPropsType>*/ = (/*props*/) => {
-
+export const App = () => {
     return (
-
         <div className="app">
-            <Header/> {/*заголовок*/}
+            <HeaderContainer/> {/*заголовок*/}
             <Navbar/> {/*панель навигации*/}
             <div className='app-content'>
                 <Route /*exact*/
@@ -25,14 +23,13 @@ export const App/*: React.FC<AppPropsType>*/ = (/*props*/) => {
                          dispatch={props.dispatch}*//>}
                 /> {/*exact - означает точь-в-точь*/}
                 <Route
-
-                    path={'/profile'}
+                    path={'/profile/:userId?'}
                     render={() => <ProfileContainer  //профиль
                         /*store={props.store}*//>}
                 />
                 <Route
                     path={'/users'}
-                    render={() => <UsersContainer />}
+                    render={() => <UsersContainer/>}
                 />
             </div>
         </div>
