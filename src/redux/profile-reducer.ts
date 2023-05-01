@@ -1,6 +1,5 @@
 import {v1} from "uuid";
 import {ActionsTypes, PostsType, ProfilePageType, ProfileType} from "./type";
-
 export const ADD_POST = "ADD-POST"
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 export const SET_USER_PROFILE = "SET-USER-PROFILE"
@@ -50,7 +49,6 @@ export const updateNewPostTextAC = (newText: string) => {
     } as const
 }
 export const setUserProfileAC = (profile: ProfileType) => {
-
     return {
         type: SET_USER_PROFILE,
         profile

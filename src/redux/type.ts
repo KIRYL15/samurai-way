@@ -3,7 +3,8 @@ import {addPostAC, setUserProfileAC, updateNewPostTextAC} from "./profile-reduce
 import {
     followAC,
     setCurrentPageAC,
-    setToogleIsFetchingAC,
+    setToggleIsFetchingAC,
+    setToggleIsFollowingProgressAC,
     setUsersAC,
     setUsersTotalCountAC,
     unFollowAC
@@ -19,10 +20,9 @@ export type AuthStateType = {
     id: null | number,
     email: null | string,
     login: null | string,
-    isAuth:boolean
+    isAuth: boolean
 
 }
-
 export type ContactType = {
     github: string
     vk: string
@@ -33,10 +33,10 @@ export type ContactType = {
     youtube: string
     mainLink: string
 }
-export type PhotoType=
-    { small: string; large: string}
+export type PhotoType =
+    { small: string; large: string }
 export type ProfileType = {
-    aboutMe?:string
+    aboutMe?: string
     contacts?: ContactType
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
@@ -47,7 +47,7 @@ export type ProfileType = {
 export type ProfilePageType = {
     posts: PostsType[],
     newPostText: string,
-    profile:null |ProfileType
+    profile: null | ProfileType
 
 };
 export type DialogsPageType = {
@@ -81,8 +81,8 @@ export type UsersType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    isFetching: boolean
-
+    isFetching: boolean,
+    followingInProgress: number[]
 }
 export type UserType = {
     id: number,
@@ -105,6 +105,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUsersAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setUsersTotalCountAC>
-    | ReturnType<typeof setToogleIsFetchingAC>
+    | ReturnType<typeof setToggleIsFetchingAC>
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setAuthUserDataAC>
+    | ReturnType<typeof setToggleIsFollowingProgressAC>
