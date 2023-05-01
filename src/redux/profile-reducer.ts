@@ -1,5 +1,7 @@
 import {v1} from "uuid";
 import {ActionsTypes, PostsType, ProfilePageType, ProfileType} from "./type";
+import {Dispatch} from "redux";
+import {profileAPI} from "../api/api";
 export const ADD_POST = "ADD-POST"
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
 export const SET_USER_PROFILE = "SET-USER-PROFILE"
@@ -55,3 +57,9 @@ export const setUserProfileAC = (profile: ProfileType) => {
     } as const
 }
 
+export const getUserProfileThunkCreator=(userId:string)=>(dispatch:Dispatch<ActionsTypes>)=>{
+    profileAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfileAC(response.data));
+        })
+}

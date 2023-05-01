@@ -1,17 +1,15 @@
 import React from 'react';
 import {Users} from "./Users";
 import {connect} from "react-redux";
-import {userAPI} from "../../api/api";
-import {UsersType, UserType} from "../../redux/type";
+import {UsersType} from "../../redux/type";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../Common/Preloader/Preloader";
 import {
-    followAC,
+    followSuccessAC,
+    getUsersThunkCreator,
     setCurrentPageAC,
-    setToggleIsFetchingAC, setToggleIsFollowingProgressAC,
-    setUsersAC,
-    setUsersTotalCountAC,
-    unFollowAC
+    setToggleIsFollowingProgressAC,
+    unFollowSuccessAC,
 } from "../../redux/users-reducer";
 
 export type UsersTypeProps = MapStateToPropsType & MapDispatchToPropsType
@@ -21,16 +19,13 @@ type MapStateToPropsType = {
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean,
-    followingInProgress:Array<any>,
+    followingInProgress: Array<any>,
 }
 type MapDispatchToPropsType = {
     follow: (userId: number) => void,
     unFollow: (userId: number) => void,
-    setUsers: (users: Array<UserType>) => void,
     setCurrentPage: (page: number) => void,
-    setTotalUsersCount: (totalCount: number) => void,
-    toggleIsFetching: (isFetching: boolean) => void,
-    toggleIsFollowingProgress:(id:number, isFetching: boolean) => void,
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
@@ -39,29 +34,28 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         totalUsersCount: state.usersPage.totalUsersCount,
         currentPage: state.usersPage.currentPage,
         isFetching: state.usersPage.isFetching,
-        followingInProgress:state.usersPage.followingInProgress
+        followingInProgress: state.usersPage.followingInProgress
     }
 }
 
 export class UsersContainer extends React.Component<UsersTypeProps> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        userAPI.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items);
-                this.props.setTotalUsersCount(data.totalCount);
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
+
     onPageChanged = (pageNumber: number) => {
+        this.props.getUsers(pageNumber, this.props.pageSize)
+        // this.props.setCurrentPage(pageNumber)
+        /*this.props.setCurrentPage(pageNumber);
+
         this.props.toggleIsFetching(true)
-        this.props.setCurrentPage(pageNumber);
-        userAPI.getUsers(pageNumber, this.props.pageSize)
+        userAPI.getUsers(pageNumber, this.props.pageSize) 
             .then(data => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(data.items);
-            })
+            })*/
     }
+
     render() {
         return (
             <> {this.props.isFetching ? <Preloader/> : null}
@@ -73,7 +67,6 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
                     usersPage={this.props.usersPage}
                     follow={this.props.follow}
                     unFollow={this.props.unFollow}
-                    toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                     followingInProgress={this.props.followingInProgress}
                 />
             </>)
@@ -82,12 +75,10 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
 
 export default connect(mapStateToProps,
     {
-        follow: followAC,
-        unFollow: unFollowAC,
-        setUsers: setUsersAC,
+        follow: followSuccessAC,
+        unFollow: unFollowSuccessAC,
         setCurrentPage: setCurrentPageAC,
-        setTotalUsersCount: setUsersTotalCountAC,
-        toggleIsFetching: setToggleIsFetchingAC,
         toggleIsFollowingProgress: setToggleIsFollowingProgressAC,
+        getUsers: getUsersThunkCreator
     }
 )(UsersContainer)
