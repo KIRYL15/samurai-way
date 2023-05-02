@@ -11,6 +11,8 @@ import {
     setToggleIsFollowingProgressAC,
     unFollowSuccessAC,
 } from "../../redux/users-reducer";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 export type UsersTypeProps = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
@@ -73,12 +75,15 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
     }
 }
 
-export default connect(mapStateToProps,
-    {
+// export default connect(mapStateToProps, {follow: followSuccessAC, unFollow: unFollowSuccessAC, setCurrentPage: setCurrentPageAC, toggleIsFollowingProgress: setToggleIsFollowingProgressAC, getUsers: getUsersThunkCreator})(UsersContainer)
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
         follow: followSuccessAC,
         unFollow: unFollowSuccessAC,
         setCurrentPage: setCurrentPageAC,
         toggleIsFollowingProgress: setToggleIsFollowingProgressAC,
         getUsers: getUsersThunkCreator
-    }
+    }),
+    withAuthRedirect
 )(UsersContainer)
