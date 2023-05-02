@@ -5,6 +5,7 @@ import {UsersReducer} from "./users-reducer";
 import {AuthReducer} from "./auth-reducer";
 import thunkMiddleware from "redux-thunk";
 
+export type AppStateType = ReturnType<typeof rootReducer>
 
 export const rootReducer = combineReducers({
     profilePage: ProfileReducer,
@@ -13,7 +14,6 @@ export const rootReducer = combineReducers({
     auth: AuthReducer,
 })
 
-export type AppStateType = ReturnType<typeof rootReducer>
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 //export type RootStateType = ReturnType<typeof store.getState>
