@@ -6,7 +6,9 @@ import {Preloader} from "../../Common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
-    profile: null | ProfileType
+    profile: null | ProfileType,
+    status:string,
+    updateStatus:(status: string)=>void
 }
 export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
     if (!props.profile) {
@@ -21,10 +23,13 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
                 <img src={props.profile.photos.small != null ? props.profile.photos.small : ''} alt="ava"/>
                 <div>UserId: {props.profile.userId}</div>
                 <div>About Me: {props.profile.aboutMe}</div>
-                <div>Full Nmae: {props.profile.fullName}</div>
+                <div>Full Name: {props.profile.fullName}</div>
+                <div>Status: {props.status}</div>
             </div>
             <div>
-                <ProfileStatus status={'Hello'}/>
+                <ProfileStatus
+                    updateStatus={props.updateStatus}
+                    status={props.status}/>
             </div>
         </div>
     );

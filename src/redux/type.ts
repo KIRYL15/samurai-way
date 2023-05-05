@@ -1,5 +1,5 @@
 import {addMessageAC, changeMessageBodyAC} from "./dialogs-reducer";
-import {addPostAC, setUserProfileAC, updateNewPostTextAC} from "./profile-reducer";
+import {addPostAC, setUserProfileAC, setUserStatusAC, updateNewPostTextAC} from "./profile-reducer";
 import {
      followSuccessAC,
     setCurrentPageAC,
@@ -47,7 +47,8 @@ export type ProfileType = {
 export type ProfilePageType = {
     posts: PostsType[],
     newPostText: string,
-    profile: null | ProfileType
+    profile: null | ProfileType,
+    status:string
 
 };
 export type DialogsPageType = {
@@ -109,3 +110,4 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfileAC>
     | ReturnType<typeof setAuthUserDataAC>
     | ReturnType<typeof setToggleIsFollowingProgressAC>
+    | ReturnType<typeof setUserStatusAC>
