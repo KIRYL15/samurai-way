@@ -8,7 +8,7 @@ type FormDataType = {
     rememberMe:boolean
 }
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    debugger
+
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -33,7 +33,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 const LoginFormRedux = reduxForm<FormDataType>({form: "login"})(LoginForm)
 export const Login = () => {
     const onSubmit=(formData:FormDataType)=>{
-        console.log(formData)
     }
     return (
         <div className={style.loginBox}>

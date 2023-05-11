@@ -6,5 +6,6 @@ type MessageType = {
 }
 
 export const Message = (props: MessageType) => {
+    console.log("props.message:", props.message)
     return (<div className={style.message}>{props.message}</div>)
 }

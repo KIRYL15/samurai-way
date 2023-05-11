@@ -1,5 +1,5 @@
-import {addMessageAC, changeMessageBodyAC} from "./dialogs-reducer";
-import {addPostAC, setUserProfileAC, setUserStatusAC, updateNewPostTextAC} from "./profile-reducer";
+import {addMessageAC} from "./dialogs-reducer";
+import {setUserProfileAC, setUserStatusAC} from "./profile-reducer";
 import {
      followSuccessAC,
     setCurrentPageAC,
@@ -16,13 +16,7 @@ export type AppStateType = {
     dialogsPage: DialogsPageType,
     usersPage: UsersType
 }
-export type AuthStateType = {
-    id: null | number,
-    email: null | string,
-    login: null | string,
-    isAuth: boolean
 
-}
 export type ContactType = {
     github: string
     vk: string
@@ -54,7 +48,7 @@ export type ProfilePageType = {
 export type DialogsPageType = {
     dialogs: DialogsType[],
     messages: MessagesType[],
-    newMessageBody: string
+    //newMessageBody: string
 };
 export type PostsType = {
     id: string,
@@ -98,9 +92,6 @@ export type UserType = {
 }
 export type ActionsTypes =
     | ReturnType<typeof addMessageAC>
-    | ReturnType<typeof changeMessageBodyAC>
-    | ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof followSuccessAC>
     | ReturnType<typeof unFollowSuccessAC>
     | ReturnType<typeof setUsersAC>

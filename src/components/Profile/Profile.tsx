@@ -5,7 +5,6 @@ import {ProfileContainerPropsType} from "./ProfileContainer";
 
 
 export const Profile: React.FC<ProfileContainerPropsType> = (props) => {
-
     return (
         <div>
             <ProfileInfo

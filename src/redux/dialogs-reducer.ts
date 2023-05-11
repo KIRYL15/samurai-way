@@ -1,8 +1,6 @@
 import {v1} from "uuid";
 import {ActionsTypes, DialogsPageType} from "./type";
 
-export const NEW_MESSAGE_BODY = "NEW-MESSAGE-BODY"
-export const ADD_MESSAGE = "ADD_MESSAGE"
 const initialState: DialogsPageType = {
     dialogs: [
         {id: v1(), name: 'Lui',},
@@ -14,39 +12,39 @@ const initialState: DialogsPageType = {
         {id: v1(), message: 'Hello'},
         {id: v1(), message: 'How is your'},
         {id: v1(), message: 'Hi-hi'},
-    ],
-    newMessageBody: ""
+    ]
 }
 export const DialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
     switch (action.type) {
-        case ADD_MESSAGE:
+        case "ADD_MESSAGE":
             const newMessage = {
                 id: v1(),
-                message: state.newMessageBody,
+                message: action.newMessageBody,
             }
             state = {...state, messages: [...state.messages, newMessage]}
-            state.newMessageBody = ""
             return state;
-        case NEW_MESSAGE_BODY:
-            //state={...state, newMessageBody: action.body}
-            return {
-                ...state,
-                newMessageBody: action.body
-            };
+        // case "NEW-MESSAGE-BODY":
+        //     //state={...state, newMessageBody: action.body}
+        //     return {
+        //         ...state,
+        //         newMessageBody: action.body
+        //     };
         default:
             return state
     }
 }
 
-export const addMessageAC = () => {
+export const addMessageAC = (newMessageBody:string) => {
+    console.log('newMessageBody', newMessageBody)
     return {
-        type: ADD_MESSAGE,
-
+        type: "ADD_MESSAGE",
+        newMessageBody
     } as const
 }
-export const changeMessageBodyAC = (body: string) => {
-    return {
-        type: NEW_MESSAGE_BODY,
-        body
-    } as const
-}
+// export const changeMessageBodyAC = (body: string) => {
+//     console.log('body', body)
+//     return {
+//         type: "NEW-MESSAGE-BODY",
+//         body
+//     } as const
+// }

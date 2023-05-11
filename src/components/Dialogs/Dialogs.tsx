@@ -1,9 +1,9 @@
+import React from 'react';
 import style from './Dialogs.module.css'
-import React, {ChangeEvent} from 'react';
 import {Message} from "./Message/Message";
 import {DialogItem} from "./DialogItem/DialogsItem";
 import {DialogsPropsType} from "./DialogsContainer";
-
+import {AddMessageFormRedux} from "./AddMessageForm/AddMessageForm";
 
 export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     let dialogsElement = props.dialogsPage.dialogs
@@ -11,25 +11,18 @@ export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     let messagesElement = props.dialogsPage.messages
         .map(m => <Message key={m.id} message={m.message}/>)
 
-    let onSendMessageClick = () => {props.sendMessage()}
-    const onNewMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {props.changeMessageBody(event.currentTarget.value)}
+    const addNewMessage = (values:any) => {
+        props.sendMessage(values.newMessageBody)
+    }
+
     //if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <div className={style.dialogs}>
-            <div className={style.dialogsItem}>
-                {dialogsElement}
-                <textarea
-                    value={props.dialogsPage.newMessageBody}
-                    placeholder={"Введи текст сообщения"}
-                    onChange={onNewMessageChange}/>
-                <button
-                    onClick={onSendMessageClick}>Add message
-                </button>
+            <div className={style.dialogsItem}>{dialogsElement}</div>
+            <div>
+            <AddMessageFormRedux onSubmit={addNewMessage}/>
             </div>
-            <div className={style.messages}>
-                {messagesElement}
-            </div>
+            <div className={style.messages}>{messagesElement}</div>
         </div>
     );
 };
-

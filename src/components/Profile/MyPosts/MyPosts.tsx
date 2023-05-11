@@ -1,45 +1,27 @@
+import React from 'react';
 import {Post} from "./Post/Post";
 import style from './MyPosts.module.css';
-import React, {ChangeEvent} from 'react';
 import {PostsType,} from "../../../redux/type";
-import {MePostsPropsType} from "./MyPostsContainer";
+import {AddNewPostFormRedux} from "./AddNewPostForm";
 
 type MyPostsType = {
-    onPostChange: (text: string) => void
-    addPosts: () => void
+    addPosts: (newPostText:string) => void
     posts: PostsType[]
-    newPostText: string
-    //postData: ProfilePageType,
-    //dispatch: (action: ActionsTypes) => void
 }
-export const MyPosts: React.FC<MePostsPropsType> = (props) => {
+export const MyPosts: React.FC<MyPostsType> = (props) => {
     let postsElement = props.posts.map((data) =>
         <Post
             key={data.id}
             numberOfLikes={data.numberOfLikes}
             postTitle={data.postTitle}/>
     )
-    const addPost = () => {
-        props.addPosts()
-    }
-    /*props.dispatch(addPostAC(props.postData.newPostText))*/
-    const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.onPostChange(text)
-        /*props.dispatch(changeNewTextAC(e.currentTarget.value))*/
+    const onAddPost = (values:any) => {
+        props.addPosts(values.newPostText)
     }
     return (
         <div className={style.postsBlock}>
             <h2>My posts</h2>
-            <div>
-                <textarea
-                    placeholder={"Напиши новый пост"}
-                    value={props.newPostText}
-                    onChange={onPostChange}/>
-                <button
-                    onClick={addPost}>Add post
-                </button>
-            </div>
+            <AddNewPostFormRedux onSubmit={onAddPost}/>
             <div className={style.posts}>{postsElement}</div>
         </div>
     );

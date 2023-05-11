@@ -1,8 +1,13 @@
-import {ActionsTypes, AuthStateType} from "./type";
+import {ActionsTypes} from "./type";
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+export type AuthStateType = {
+    id: null | number,
+    email: null | string,
+    login: null | string,
+    isAuth: boolean
+}
 
-export const SET_USER_DATA = "SET-USER-DATA"
 const initialState: AuthStateType = {
     id: null,
     email: null,
@@ -12,8 +17,7 @@ const initialState: AuthStateType = {
 
 export const AuthReducer = (state = initialState, action: ActionsTypes): AuthStateType => {
     switch (action.type) {
-        case SET_USER_DATA:
-
+        case "SET-USER-DATA":
             return {
                 ...state,
                 ...action.data, isAuth:true
@@ -25,7 +29,7 @@ export const AuthReducer = (state = initialState, action: ActionsTypes): AuthSta
 
 export const setAuthUserDataAC = (id: null | number, email: null | string, login: null | string, isAuth:boolean) => {
     return {
-        type: SET_USER_DATA,
+        type: "SET-USER-DATA",
         data: {
             id,
             email,

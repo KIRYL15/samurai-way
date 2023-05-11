@@ -31,7 +31,6 @@ import {DialogsReducer} from "./dialogs-reducer";
         },
     },*!/
     _rerenderEntireTree() {
-        console.log('Render store')
     },
 
     subscribe(callback) {
