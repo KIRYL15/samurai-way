@@ -2,10 +2,10 @@ import React from 'react';
 import {Dialogs} from "./Dialogs";
 import {addMessageAC} from "../../redux/dialogs-reducer";
 import {connect} from "react-redux";
-import {DialogsPageType} from "../../redux/type";
 import {AppStateType} from "../../redux/redux-store";
 import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {DialogsPageType} from "../../api/api";
 
 export type DialogsPropsType = mapStateToPropsType & mapDispatchToPropsType
 type mapStateToPropsType = {

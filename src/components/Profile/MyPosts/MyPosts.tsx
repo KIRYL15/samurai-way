@@ -1,8 +1,8 @@
 import React from 'react';
 import {Post} from "./Post/Post";
 import style from './MyPosts.module.css';
-import {PostsType,} from "../../../redux/type";
 import {AddNewPostFormRedux} from "./AddNewPostForm";
+import {PostsType} from "../../../api/api";
 
 type MyPostsType = {
     addPosts: (newPostText:string) => void

@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {StoreType} from "./type";
+
 import {ProfileReducer} from "./profile-reducer";
 import {DialogsReducer} from "./dialogs-reducer";
 /*export const store: StoreType = {

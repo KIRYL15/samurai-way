@@ -1,6 +1,9 @@
 import {v1} from "uuid";
-import {ActionsTypes, DialogsPageType} from "./type";
+import {DialogsPageType} from "../api/api";
+import {AppActionsTypes} from "./redux-store";
 
+export type DialogsActionType = AddMessageAT
+type AddMessageAT = ReturnType<typeof addMessageAC>
 const initialState: DialogsPageType = {
     dialogs: [
         {id: v1(), name: 'Lui',},
@@ -14,7 +17,8 @@ const initialState: DialogsPageType = {
         {id: v1(), message: 'Hi-hi'},
     ]
 }
-export const DialogsReducer = (state = initialState, action: ActionsTypes): DialogsPageType => {
+
+export const DialogsReducer = (state = initialState, action: AppActionsTypes): DialogsPageType => {
     switch (action.type) {
         case "ADD_MESSAGE":
             const newMessage = {
@@ -23,28 +27,15 @@ export const DialogsReducer = (state = initialState, action: ActionsTypes): Dial
             }
             state = {...state, messages: [...state.messages, newMessage]}
             return state;
-        // case "NEW-MESSAGE-BODY":
-        //     //state={...state, newMessageBody: action.body}
-        //     return {
-        //         ...state,
-        //         newMessageBody: action.body
-        //     };
         default:
             return state
     }
 }
 
-export const addMessageAC = (newMessageBody:string) => {
+export const addMessageAC = (newMessageBody: string) => {
     console.log('newMessageBody', newMessageBody)
     return {
         type: "ADD_MESSAGE",
         newMessageBody
     } as const
 }
-// export const changeMessageBodyAC = (body: string) => {
-//     console.log('body', body)
-//     return {
-//         type: "NEW-MESSAGE-BODY",
-//         body
-//     } as const
-// }

@@ -1,9 +1,9 @@
 import React from 'react';
 import mainImg from "./voleibol-2.jpg";
 import style from './ProfileInfo.module.css'
-import {ProfileType} from "../../../redux/type";
 import {Preloader} from "../../Common/Preloader/Preloader";
 import {ProfileStatus} from "./ProfileStatus";
+import {ProfileType} from "../../../api/api";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType,

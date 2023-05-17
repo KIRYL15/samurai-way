@@ -3,7 +3,6 @@ import {compose} from "redux";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {ProfileType} from "../../redux/type";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {
     getUserProfileThunkCreator,
@@ -11,6 +10,7 @@ import {
     updateStatusThunkCreator
 } from "../../redux/profile-reducer";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {ProfileType} from "../../api/api";
 
 type PathParamsType = {
     userId: string,

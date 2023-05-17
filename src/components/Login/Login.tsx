@@ -1,27 +1,51 @@
-import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {connect} from "react-redux";
 import style from "./Login.module.css";
+import {loginTC} from "../../redux/auth-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {AppStateType} from "../../redux/redux-store";
+import {Redirect} from "react-router-dom";
+import {Input} from "../Common/FormsControls/FormsControls";
+import {required} from "../../utilts/validators/validators";
+import React from 'react'
 
-type FormDataType = {
-    login:string,
-    password:string,
-    rememberMe:boolean
+
+export type FormDataType = {
+    email: string,
+    password: string,
+    rememberMe: boolean
 }
-const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+type LoginType = {
+    isAuth: boolean
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
+
+export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
 
     return (
-        <form onSubmit={props.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
-                <Field name={"login"} component={"input"} placeholder={"Login"}/>
-                {/*<input placeholder={"Login"}/>*/}
+                <Field
+                    name={"email"}
+                    component={Input}
+                    placeholder={"Email"}
+                    validate={[required]}
+                    type={"text"}/>
             </div>
             <div>
-                <Field name={"password"} component={"input"} placeholder={"Password"}/>
-                {/*<input placeholder={"Password"}/>*/}
+                <Field
+                    name={"password"}
+                    component={Input}
+                    placeholder={"Password"}
+                    type={"password"}
+                    validate={[required]}
+                />
             </div>
             <div>
-                <Field name={"remember"} component={"input"} type={"checkbox"} />remember me
-                {/*<input type={'checkbox'}/>*/}
+                <Field
+                    name={"rememberMe"}
+                    component={Input}
+                    type="checkbox"
+                />remember me
             </div>
             <div>
                 <button>Login</button>
@@ -29,16 +53,26 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
         </form>
     );
 };
-
-const LoginFormRedux = reduxForm<FormDataType>({form: "login"})(LoginForm)
-export const Login = () => {
-    const onSubmit=(formData:FormDataType)=>{
+const LoginFormRedux = reduxForm<FormDataType>({form: 'login'})(LoginForm)
+//---------------
+const Login = (props: LoginType) => {
+    const onSubmit = (formData: FormDataType) => {
+        props.login(formData.email, formData.password, formData.rememberMe)
+    }
+    if (props.isAuth) {
+        return <Redirect to={'/profile'}/>
     }
     return (
         <div className={style.loginBox}>
-            <h2>LOGIN</h2>
-            <LoginFormRedux onSubmit={onSubmit} />
+            <h2>Login</h2>
+            <LoginFormRedux onSubmit={onSubmit}/>
         </div>
     );
 };
-
+type mapStateToPropsType = {
+    isAuth: boolean
+}
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => ({
+    isAuth: state.auth.isAuth,
+})
+export default connect(mapStateToProps, {login: loginTC})(Login)

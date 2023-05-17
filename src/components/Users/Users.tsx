@@ -1,8 +1,8 @@
 import React from 'react';
 import s from "./Users.module.css";
 import {NavLink} from 'react-router-dom';
-import {UsersType} from "../../redux/type";
 import usersPhotoClass from "./ava_2_anders.png";
+import {UsersType} from "../../api/api";
 
 
 type UsersPropsType = {
@@ -30,7 +30,6 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                         key={index}
                         className={props.currentPage === p ? s.selectedPage : ''}
                         onClick={() => props.onPageChanged(p)}>{p}</span>
-
                 })
             }
             </div>
