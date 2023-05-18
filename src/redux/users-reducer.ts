@@ -103,15 +103,16 @@ export const setToggleIsFollowingProgressAC = (userId: number, isFetching: boole
     } as const
 }
 //THUNK
-export const getUsersTC = (currentPage: number, pageSize: number):AppThunk => {
+export const getUsersTC = (page: number, pageSize: number):AppThunk => {
     return (dispatch) => {
         dispatch(setToggleIsFetchingAC(true))
-        userAPI.getUsers(currentPage, pageSize)
+        dispatch(setCurrentPageAC(page))
+        userAPI.getUsers(page, pageSize)
             .then(data => {
                 dispatch(setToggleIsFetchingAC(false))
                 dispatch(setUsersAC(data.items));
                 dispatch(setUsersTotalCountAC(data.totalCount));
-                dispatch(setCurrentPageAC(currentPage));
+                dispatch(setCurrentPageAC(page));
             })
     }
 }

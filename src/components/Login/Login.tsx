@@ -47,6 +47,9 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubm
                     type="checkbox"
                 />remember me
             </div>
+            {error && <div className={style.formError}>
+                {error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>

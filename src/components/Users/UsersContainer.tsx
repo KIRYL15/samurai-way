@@ -1,8 +1,11 @@
 import React from 'react';
 import {Users} from "./Users";
+import {compose} from "redux";
 import {connect} from "react-redux";
+import {UsersType} from "../../api/api";
 import {AppStateType} from "../../redux/redux-store";
 import {Preloader} from "../Common/Preloader/Preloader";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {
     followTC,
     getUsersTC,
@@ -10,9 +13,14 @@ import {
     setToggleIsFollowingProgressAC,
     unFollowTC,
 } from "../../redux/users-reducer";
-import {compose} from "redux";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
-import {UsersType} from "../../api/api";
+import {
+    getCurrentPage,
+    getFollowingInProgress,
+    getIsFetching,
+    getPageSize,
+    getTotalUsersCount,
+    getUsers
+} from "../../redux/users-selectors";
 
 export type UsersTypeProps = MapStateToPropsType & MapDispatchToPropsType
 type MapStateToPropsType = {
@@ -29,14 +37,24 @@ type MapDispatchToPropsType = {
     setCurrentPage: (page: number) => void,
     getUsers: (currentPage: number, pageSize: number) => void
 }
+// let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+//     return {
+//         usersPage: state.usersPage,
+//         pageSize: state.usersPage.pageSize,
+//         totalUsersCount: state.usersPage.totalUsersCount,
+//         currentPage: state.usersPage.currentPage,
+//         isFetching: state.usersPage.isFetching,
+//         followingInProgress: state.usersPage.followingInProgress
+//     }
+// }
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        usersPage: state.usersPage,
-        pageSize: state.usersPage.pageSize,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        currentPage: state.usersPage.currentPage,
-        isFetching: state.usersPage.isFetching,
-        followingInProgress: state.usersPage.followingInProgress
+        usersPage: getUsers(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        followingInProgress: getFollowingInProgress(state)
     }
 }
 

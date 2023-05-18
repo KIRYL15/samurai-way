@@ -20,7 +20,7 @@ export type ProfileType = {
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
     fullName?: string
-    userId?: number
+    userId?: null | number
     photos: PhotoType
 }
 export type ProfilePageType = {
@@ -28,22 +28,12 @@ export type ProfilePageType = {
     newPostText: string,
     profile: null | ProfileType,
     status: string
-
 };
-
 export type PostsType = {
     id: string,
     numberOfLikes: number,
     postTitle: string
 };
-
-// export type StoreType = {
-//     _state: AppStateType,
-//     _rerenderEntireTree: () => void,
-//     subscribe: (callback: () => void) => void,
-//     getState: () => AppStateType,
-//     dispatch: (action: ActionsTypes) => void
-// };
 export type UsersType = {
     users: Array<UserType>,
     pageSize: number,
@@ -63,8 +53,6 @@ export type UserType = {
         country: string
     }
 }
-
-
 export type AppStateType = {
     profilePage: ProfilePageType,
     dialogsPage: DialogsPageType,
@@ -109,14 +97,11 @@ export const userAPI = {
             })
     }
 }
-
 export const authAPI = {
     me() {
         return instance.get(`auth/me/`)
     },
     login(email: string, password: string, rememberMe = false) {
-        //console.log("string", password)
-        //console.log("email", email)
         return instance.post(`auth/login`, {email, password, rememberMe})
     },
     logout() {
@@ -125,10 +110,10 @@ export const authAPI = {
 
 }
 export const profileAPI = {
-    getProfile(userId: string) {
+    getProfile(userId: null | number) {
         return instance.get(`profile/` + userId)
     },
-    getUserStatus(userId: string) {
+    getUserStatus(userId: null | number) {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status: string) {

@@ -1,3 +1,8 @@
 .loginBox {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
+.formError{
+    border:red 1px solid;
+    padding: 5px;
+    color: #f50707;
+}

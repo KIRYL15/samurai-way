@@ -1,5 +1,7 @@
 import {authAPI} from "../api/api";
-import {AppActionsTypes, AppThunk} from "./redux-store";
+import {AppActionsTypes, AppDispatch, AppThunk} from "./redux-store";
+import {stopSubmit} from "redux-form";
+
 //type
 export type AuthActionType = setAuthUserDataAT
 type setAuthUserDataAT = ReturnType<typeof setAuthUserDataAC>
@@ -29,19 +31,15 @@ export const AuthReducer = (state = initialState, action: AppActionsTypes): Auth
     }
 }
 export const setAuthUserDataAC = (id: null | number, email: null | string, login: null | string, isAuth: boolean) => {
-    console.log("setAuthUserDataAC")
     return {
-        // console.log("response", response)
         type: "SET-USER-DATA",
         payload: {id, email, login, isAuth}
     } as const
 }
-export const getAuthUserDataTC = (): AppThunk => {
-    console.log("getAuthUserDataTC")
-    return (dispatch) => {
+export const getAuthUserDataTC = () => {
+    return (dispatch:AppDispatch) => {
         authAPI.me()
             .then(response => {
-                //console.log("response", response)
                 if (response.data.resultCode === 0) {
                     let {id, email, login} = response.data.data
                     dispatch(setAuthUserDataAC(id, email, login, true))
@@ -49,14 +47,16 @@ export const getAuthUserDataTC = (): AppThunk => {
             })
     }
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
-    return (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch:any) => {
         authAPI.login(email, password, rememberMe)
             .then(response => {
-                //console.log("response", response)
-
                 if (response.data.resultCode === 0) {
                     dispatch(getAuthUserDataTC())
+                } else {
+                    //debugger
+                    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+                    dispatch(stopSubmit('login', {_error: message}))
                 }
             })
     }

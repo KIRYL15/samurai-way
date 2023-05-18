@@ -57,13 +57,13 @@ export const setUserStatusAC = (status: string) => {
     } as const
 }
 
-export const getUserProfileThunkCreator = (userId: string) => (dispatch: Dispatch<ProfileActionType>) => {
+export const getUserProfileThunkCreator = (userId: null | number) => (dispatch: Dispatch<ProfileActionType>) => {
     profileAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfileAC(response.data));
         })
 }
-export const getUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch<ProfileActionType>) => {
+export const getUserStatusThunkCreator = (userId: null | number) => (dispatch: Dispatch<ProfileActionType>) => {
     profileAPI.getUserStatus(userId)
         .then(response => {
             dispatch(setUserStatusAC(response.data));
