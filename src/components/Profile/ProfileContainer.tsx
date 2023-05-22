@@ -9,7 +9,6 @@ import {
     getUserStatusThunkCreator,
     updateStatusThunkCreator
 } from "../../redux/profile-reducer";
-import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {ProfileType} from "../../api/api";
 
 type PathParamsType = {

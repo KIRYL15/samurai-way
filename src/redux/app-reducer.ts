@@ -28,7 +28,7 @@ export const initializedSuccessAC = () => {
     } as const
 }
 export const initializeTC = () => {
-    debugger
+    //debugger
     return (dispatch: AppDispatch) => {
         let promise = dispatch(getAuthUserDataTC())
         Promise.all([promise])

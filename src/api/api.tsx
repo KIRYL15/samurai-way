@@ -117,6 +117,7 @@ export const profileAPI = {
         return instance.get(`profile/status/` + userId)
     },
     updateStatus(status: string) {
+        debugger
         return instance.put(`profile/status/`, {status: status})
     }
 }

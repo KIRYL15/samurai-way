@@ -2,8 +2,8 @@ import React from 'react';
 import mainImg from "./voleibol-2.jpg";
 import style from './ProfileInfo.module.css'
 import {Preloader} from "../../Common/Preloader/Preloader";
-import {ProfileStatus} from "./ProfileStatus";
 import {ProfileType} from "../../../api/api";
+import {ProfileStatusWithHooks} from "./ProfileStatusWithHooks";
 
 type ProfileInfoPropsType = {
     profile: null | ProfileType,
@@ -27,7 +27,7 @@ export const ProfileInfo: React.FC<ProfileInfoPropsType> = (props) => {
                 <div>Status: {props.status}</div>
             </div>
             <div>
-                <ProfileStatus
+                <ProfileStatusWithHooks
                     updateStatus={props.updateStatus}
                     status={props.status}/>
             </div>

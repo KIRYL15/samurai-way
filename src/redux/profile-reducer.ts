@@ -33,6 +33,7 @@ export const ProfileReducer = (state = initialState, action: AppActionsTypes): P
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-STATUS":
+            debugger
             return {...state, status: action.status}
         default:
             return state;
@@ -51,6 +52,7 @@ export const setUserProfileAC = (profile: ProfileType) => {
     } as const
 }
 export const setUserStatusAC = (status: string) => {
+    debugger
     return {
         type: "SET-STATUS",
         status
@@ -70,6 +72,7 @@ export const getUserStatusThunkCreator = (userId: null | number) => (dispatch: D
         })
 }
 export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch<ProfileActionType>) => {
+    debugger
     profileAPI.updateStatus(status)
         .then(response => {
             if (response.data.resultCode === 0) {
