@@ -3,7 +3,6 @@ import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileContainerPropsType} from "./ProfileContainer";
 
-
 export const Profile: React.FC<ProfileContainerPropsType> = (props) => {
     return (
         <div>

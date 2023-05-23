@@ -1,18 +1,13 @@
-import style from './FormsControls.module.css'
-import {WrappedFieldInputProps, WrappedFieldMetaProps, WrappedFieldProps} from "redux-form";
 import React from "react";
+import style from './FormsControls.module.css'
+import {Field, WrappedFieldProps} from "redux-form";
 
-type FormControlPropsType = {
-    input: WrappedFieldInputProps
-    type?: string
-    meta: WrappedFieldMetaProps
-}
-export const FormControl: React.FC<WrappedFieldProps> = React.memo(({input, meta: {touched, error}, ...restProps}) => {
+export const FormControl: React.FC<WrappedFieldProps> = React.memo(({meta: {touched, error},children}) => {
     const hasError = error && touched
     return (
         <>
             <div className={style.formControl + " " + (hasError ? style.error : " ")}>
-                <div>{restProps.children}</div>
+                <div>{children}</div>
                 {hasError && <span>{error}</span>}
             </div>
         </>
@@ -31,6 +26,20 @@ export const Input: React.FC<WrappedFieldProps> = React.memo((props) => {
         return <FormControl {...props}><input {...input} {...restProps}/></FormControl>
     }
 )
+export const CreateField = (placeholder: any, name: any, validate: any, component: any, props = {}, text = "") => {
+    return (
+        <div>
+            <Field
+                name={name}
+                component={component}
+                placeholder={placeholder}
+                validate={validate}
+                {...props}
+            />{text}
+        </div>
+    )
+
+}
 //
 // classNames, clsx
 // className={clsx(forControl, error, isActive && 'active'}

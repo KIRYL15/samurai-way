@@ -37,16 +37,7 @@ type MapDispatchToPropsType = {
     setCurrentPage: (page: number) => void,
     getUsers: (currentPage: number, pageSize: number) => void
 }
-// let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-//     return {
-//         usersPage: state.usersPage,
-//         pageSize: state.usersPage.pageSize,
-//         totalUsersCount: state.usersPage.totalUsersCount,
-//         currentPage: state.usersPage.currentPage,
-//         isFetching: state.usersPage.isFetching,
-//         followingInProgress: state.usersPage.followingInProgress
-//     }
-// }
+
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         usersPage: getUsers(state),
@@ -60,20 +51,13 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export class UsersContainer extends React.Component<UsersTypeProps> {
     componentDidMount() {
-        this.props.getUsers(this.props.currentPage, this.props.pageSize)
+        const {currentPage, pageSize} = this.props
+        this.props.getUsers(currentPage, pageSize)
     }
 
     onPageChanged = (pageNumber: number) => {
-        this.props.getUsers(pageNumber, this.props.pageSize)
-        // this.props.setCurrentPage(pageNumber)
-        /*this.props.setCurrentPage(pageNumber);
-
-        this.props.toggleIsFetching(true)
-        userAPI.getUsers(pageNumber, this.props.pageSize) 
-            .then(data => {
-                this.props.toggleIsFetching(false)
-                this.props.setUsers(data.items);
-            })*/
+        const {pageSize} = this.props
+        this.props.getUsers(pageNumber, pageSize)
     }
 
     render() {
@@ -92,8 +76,6 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
             </>)
     }
 }
-
-// export default connect(mapStateToProps, {follow: followSuccessAC, unFollow: unFollowSuccessAC, setCurrentPage: setCurrentPageAC, toggleIsFollowingProgress: setToggleIsFollowingProgressAC, getUsers: getUsersThunkCreator})(UsersContainer)
 
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {

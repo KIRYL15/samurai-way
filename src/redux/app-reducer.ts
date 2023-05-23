@@ -22,13 +22,11 @@ export const AppReducer = (state = initialState, action: setInitializedAT): Init
     }
 }
 export const initializedSuccessAC = () => {
-    //debugger
     return {
         type: "SET-INITIALIZED",
     } as const
 }
 export const initializeTC = () => {
-    //debugger
     return (dispatch: AppDispatch) => {
         let promise = dispatch(getAuthUserDataTC())
         Promise.all([promise])

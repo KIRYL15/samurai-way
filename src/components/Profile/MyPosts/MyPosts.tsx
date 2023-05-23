@@ -8,14 +8,16 @@ type MyPostsType = {
     addPosts: (newPostText:string) => void
     posts: PostsType[]
 }
-export const MyPosts: React.FC<MyPostsType> = (props) => {
+
+export const MyPosts = React.memo((props: MyPostsType) => {
+    console.log('render')
     let postsElement = props.posts.map((data) =>
         <Post
             key={data.id}
             numberOfLikes={data.numberOfLikes}
             postTitle={data.postTitle}/>
     )
-    const onAddPost = (values:any) => {
+    const onAddPost = (values: any) => {
         props.addPosts(values.newPostText)
     }
     return (
@@ -25,4 +27,4 @@ export const MyPosts: React.FC<MyPostsType> = (props) => {
             <div className={style.posts}>{postsElement}</div>
         </div>
     );
-};
+});

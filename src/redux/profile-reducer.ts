@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {PostsType, profileAPI, ProfilePageType, ProfileType} from "../api/api";
 import {AppActionsTypes} from "./redux-store";
+import {PostsType, profileAPI, ProfilePageType, ProfileType} from "../api/api";
 
 export type addPostAT = ReturnType<typeof addPostAC>
 export type setUserProfileAT = ReturnType<typeof setUserProfileAC>
@@ -33,7 +33,6 @@ export const ProfileReducer = (state = initialState, action: AppActionsTypes): P
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
         case "SET-STATUS":
-            debugger
             return {...state, status: action.status}
         default:
             return state;
@@ -52,31 +51,23 @@ export const setUserProfileAC = (profile: ProfileType) => {
     } as const
 }
 export const setUserStatusAC = (status: string) => {
-    debugger
     return {
         type: "SET-STATUS",
         status
     } as const
 }
 
-export const getUserProfileThunkCreator = (userId: null | number) => (dispatch: Dispatch<ProfileActionType>) => {
-    profileAPI.getProfile(userId)
-        .then(response => {
-            dispatch(setUserProfileAC(response.data));
-        })
+export const getUserProfileThunkCreator = (userId: null | number) => async (dispatch: Dispatch<ProfileActionType>) => {
+    let response = await profileAPI.getProfile(userId)
+    dispatch(setUserProfileAC(response.data));
 }
-export const getUserStatusThunkCreator = (userId: null | number) => (dispatch: Dispatch<ProfileActionType>) => {
-    profileAPI.getUserStatus(userId)
-        .then(response => {
-            dispatch(setUserStatusAC(response.data));
-        })
+export const getUserStatusThunkCreator = (userId: null | number) => async (dispatch: Dispatch<ProfileActionType>) => {
+    let response = await profileAPI.getUserStatus(userId)
+    dispatch(setUserStatusAC(response.data));
 }
-export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch<ProfileActionType>) => {
-    debugger
-    profileAPI.updateStatus(status)
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserStatusAC(status))
-            }
-        })
+export const updateStatusThunkCreator = (status: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+    let response = await profileAPI.updateStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setUserStatusAC(status))
+    }
 }

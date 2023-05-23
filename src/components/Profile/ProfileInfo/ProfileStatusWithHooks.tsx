@@ -10,18 +10,16 @@ type ProfileStatusWithHooks = {
 //         status: e.currentTarget.value
 //     })
 // }
-export const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooks> = ({status, updateStatus, ...props}) => {
+export const ProfileStatusWithHooks: React.FC<ProfileStatusWithHooks> = ({status, updateStatus}) => {
     let [editMode, setEditMode] = useState<boolean>(false)
     let [statuses, setStatuses] = useState<string>(status)
     useEffect(() => {
         setStatuses(status)
     }, [status])
     const activateMode = () => {
-        //debugger
         setEditMode(true)
     }
     const deActivateMode = () => {
-        //debugger
         setEditMode(false)
         updateStatus(statuses)
     }

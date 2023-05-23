@@ -27,7 +27,6 @@ class App extends React.Component<MapDispatchToPropsType> {
     }
 
     render() {
-        //debugger
         if (this.props.initialized) {
             return <Preloader/>
         }
@@ -39,7 +38,8 @@ class App extends React.Component<MapDispatchToPropsType> {
                     {/*<Route exact path={"/"}>*/}
                     {/*    <Redirect to={"/ProfileContainer"}/>*/}
                     {/*</Route>*/}
-                    <Route path={'/dialogs'} render={() => <DialogsContainer/>}/> {/*//страница с диалогом //exact - означает точь-в-точь*/}
+                    <Route path={'/dialogs'} render={() =>
+                        <DialogsContainer/>}/> {/*//страница с диалогом //exact - означает точь-в-точь*/}
                     <Route path={'/profile/:userId?'} render={() => <ProfileContainer/>}/> {/*//профиль*/}
                     <Route path={'/users'} render={() => <UsersContainer/>}/> {/*//страница с Users*/}
                     <Route path={'/login'} render={() => <Login/>}/>
@@ -49,7 +49,7 @@ class App extends React.Component<MapDispatchToPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         initialized: state.app.initialized
     }

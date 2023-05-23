@@ -37,37 +37,30 @@ export const setAuthUserDataAC = (id: null | number, email: null | string, login
     } as const
 }
 export const getAuthUserDataTC = () => {
-    return (dispatch:AppDispatch) => {
-        authAPI.me()
-            .then(response => {
+    return async (dispatch: AppDispatch) => {
+        let response = await authAPI.me()
                 if (response.data.resultCode === 0) {
                     let {id, email, login} = response.data.data
                     dispatch(setAuthUserDataAC(id, email, login, true))
                 }
-            })
     }
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch:any) => {
-        authAPI.login(email, password, rememberMe)
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(getAuthUserDataTC())
-                } else {
-                    //debugger
-                    let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
-                    dispatch(stopSubmit('login', {_error: message}))
-                }
-            })
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return async (dispatch) => {
+        let response = await authAPI.login(email, password, rememberMe)
+        if (response.data.resultCode === 0) {
+            dispatch(getAuthUserDataTC())
+        } else {
+            let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error"
+            dispatch(stopSubmit('login', {_error: message}))
+        }
     }
 }
 export const logoutTC = (): AppThunk => {
-    return (dispatch) => {
-        authAPI.logout()
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    dispatch(setAuthUserDataAC(null, null, null, false))
-                }
-            })
+    return async (dispatch) => {
+        let response = await authAPI.logout()
+        if (response.data.resultCode === 0) {
+            dispatch(setAuthUserDataAC(null, null, null, false))
+        }
     }
 }
