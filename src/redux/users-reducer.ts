@@ -98,7 +98,8 @@ export const setToggleIsFollowingProgressAC = (userId: number, isFetching: boole
 }
 //THUNK
 export const getUsersTC = (page: number, pageSize: number): AppThunk => {
-    return async (dispatch) => {
+    return async (dispatch,getState:()=>any) => {
+        getState()
         dispatch(setToggleIsFetchingAC(true))
         dispatch(setCurrentPageAC(page))
         let data = await userAPI.getUsers(page, pageSize)
@@ -117,12 +118,13 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 }
 export const followTC = (userId: number): AppThunk => {
     return async (dispatch) => {
-        followUnfollowFlow(dispatch, userId, userAPI.follow(userId), followSuccessAC)
+        console.log("userAPI.follow.bind(userAPI)", userAPI.follow.bind(userAPI))
+        followUnfollowFlow(dispatch, userId, userAPI.follow.bind(userAPI), followSuccessAC)
     }
 }
 export const unFollowTC = (userId: number): AppThunk => {
     return async (dispatch) => {
-        followUnfollowFlow(dispatch, userId, userAPI.unFollow(userId), unFollowSuccessAC)
+        followUnfollowFlow(dispatch, userId, userAPI.unFollow.bind(userAPI), unFollowSuccessAC)
     }
 }
 

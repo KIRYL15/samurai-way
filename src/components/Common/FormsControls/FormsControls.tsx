@@ -14,7 +14,6 @@ export const FormControl: React.FC<WrappedFieldProps> = React.memo(({meta: {touc
     )
 })
 
-
 export const Textarea: React.FC<WrappedFieldProps> = React.memo((props) => {
         const {input, meta, children, ...restProps} = props
         return <FormControl {...props}><textarea {...input} {...restProps}/></FormControl>
@@ -50,8 +49,6 @@ export const CreateField = (placeholder: any, name: any, validate: any, componen
       <div><textarea {...input} {...props}/></div>
       <div>{hasError && <span>{meta.error}</span>}</div>
   </div>*/
-
-
 /*
 export const Input = ({input, meta, ...props}: any) => {
     const hasError = meta.error && meta.touched
