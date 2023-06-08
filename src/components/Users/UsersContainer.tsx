@@ -50,6 +50,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 export class UsersContainer extends React.Component<UsersTypeProps> {
+
     componentDidMount() {
         const {currentPage, pageSize} = this.props
         this.props.getUsers(currentPage, pageSize)

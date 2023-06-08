@@ -28,4 +28,9 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
         }
     }
 }
+//Над компонентой MyPosts создается контейнерная компонента, а внутри контейнерной написан код который
+// обращается к стору, подписывается на него, берет стейт, засовывает стейт в функцию mapStateToProps,
+// чтобы конкретно понять что из этого нужно нашей компоненте, заием сравнивает данные которые уже есть
+// и если данные изменились компонента перерисовается, также и происходит с mapDispatchToProps. Так
+// работает connect
 export const MyPostsContainer = connect(mapStateToProps, mapDispatchToProps)(MyPosts)

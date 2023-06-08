@@ -4,10 +4,13 @@ import {getAuthUserDataTC} from "./auth-reducer";
 export type setInitializedAT = ReturnType<typeof initializedSuccessAC>
 export type InitializedStateType = {
     initialized: boolean
+    globalError:string|null
+
 }
 //initial
 const initialState: InitializedStateType = {
     initialized: false,
+    globalError:null
 }
 //reducer
 export const AppReducer = (state = initialState, action: setInitializedAT): InitializedStateType => {

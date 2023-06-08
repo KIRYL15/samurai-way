@@ -22,11 +22,13 @@ export const Paginator: React.FC<UsersPropsType> = ({totalItemsCount, currentPag
     return (
             <div className={s.allPageType}>
                 {portionNumber > 1 && <button onClick={() => {setPortionNumber(portionNumber - 1)}}>PREV</button>}
-                {pages.filter(p => p >= leftPortionPageNumber && p <= ringhtPortionPageNumber).map((p,index) => {
+                {pages
+                    .filter(p => p >= leftPortionPageNumber && p <= ringhtPortionPageNumber)
+                    .map((p,index) => {
                     return (
                         <span key={index}
                             className={currentPage === p ? s.selectedPage : ''}
-                            onClick={(e) => {onPageChanged(p)}}>{p}</span>
+                            onClick={() => {onPageChanged(p)}}>{p}</span>
                     )
                 })
                 }

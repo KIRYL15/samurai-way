@@ -1,14 +1,14 @@
 import axios from "axios";
 //type
 export type ContactType = {
-    github: string
-    vk: string
-    facebook: string
-    instagram: string
-    twitter: string
-    website: string
-    youtube: string
-    mainLink: string
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
 }
 export type PhotoType = {
     small: string;
@@ -20,8 +20,8 @@ export type ProfileType = {
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
     fullName?: string
-    userId?: null | number
-    photos: PhotoType
+    userId?:  number
+    photos?: PhotoType
 }
 export type ProfilePageType = {
     posts: PostsType[],
@@ -101,8 +101,8 @@ export const authAPI = {
     me() {
         return instance.get(`auth/me/`)
     },
-    login(email: string, password: string, rememberMe = false) {
-        return instance.post(`auth/login`, {email, password, rememberMe})
+    login(email: string, password: string, rememberMe = false, captchaUrl:string | null = null) {
+        return instance.post(`auth/login`, {email, password, rememberMe, captchaUrl})
     },
     logout() {
         return instance.delete(`auth/login`)
@@ -119,5 +119,23 @@ export const profileAPI = {
     updateStatus(status: string) {
 
         return instance.put(`profile/status/`, {status: status})
+    },
+    savePhoto(photoFile:File){
+        let formData=new FormData()
+        formData.append('image', photoFile)
+        return instance.put(`profile/photo/`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+    },
+    saveProfile(profile:ProfileType){
+        debugger
+        return instance.put(`profile`, profile)
+    }
+}
+export const securityAPI = {
+    getCaptchaUrl() {
+        return instance.get(`security/get-captcha-url`)
     }
 }
