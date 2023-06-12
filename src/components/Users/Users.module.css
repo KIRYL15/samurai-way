@@ -5,3 +5,19 @@
 .allPageType{
     cursor: pointer;
 }
+.followUnfollow{
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: #83bbef;
+    cursor: pointer;
+    text-decoration: gold;
+    font-family: Calibri;
+}
+.followUnfollow:hover {
+    cursor: pointer;
+    background-color: #efebeb;
+}
+.followUnfollow::after {
+    cursor: pointer;
+    background-color: #3700ff;
+}

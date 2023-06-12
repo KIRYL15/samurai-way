@@ -62,8 +62,9 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
     }
 
     render() {
-        return (
-            <> {this.props.isFetching ? <Preloader/> : null}
+
+        return <>
+                {this.props.isFetching ? <Preloader/> : null}
                 <Users
                     totalUsersCount={this.props.totalUsersCount}
                     pageSize={this.props.pageSize}
@@ -74,7 +75,7 @@ export class UsersContainer extends React.Component<UsersTypeProps> {
                     unFollow={this.props.unFollow}
                     followingInProgress={this.props.followingInProgress}
                 />
-            </>)
+            </>
     }
 }
 

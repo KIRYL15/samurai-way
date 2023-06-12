@@ -1,12 +1,12 @@
 .nav {
 
     grid-area: nav;
-    background-color: #b1f3ba;
+    background-color: #645E5772;
 }
 
 .item a{
     font-family: Calibri;
-    color: #1a6565;
+    color: #000000;
     font-size: 28px;
     padding-left: 10px;
     padding-top: 10px;
@@ -14,6 +14,22 @@
 }
 
 .item a.active {
-    color: indigo;
+    color: #0022ff;
+    border-color: goldenrod;
+    border-radius: 50px;
 
+}
+
+.item a:hover{
+    color: rgb(224, 231, 238);
+    text-decoration: underline;
+
+
+}
+
+.item a.active:hover {
+    color: #0022ff;
+    border-color: goldenrod;
+    border-radius: 50px;
+    text-decoration: none;
 }

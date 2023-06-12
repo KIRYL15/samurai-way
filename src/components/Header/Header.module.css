@@ -1,6 +1,6 @@
 .header {
     grid-area: header;
-    background-color: #89e5b4;
+    background-color: rgba(100, 94, 87, 0.45);
 }
 
 .header img {

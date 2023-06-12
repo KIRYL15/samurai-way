@@ -16,8 +16,8 @@ const initialState: UsersType = {
     users: [],
     pageSize: 10,//количество пользователей на странице
     totalUsersCount: 0,
-    currentPage: 4,//текущая страница
-    isFetching: true,//loading
+    currentPage: 1,//текущая страница
+    isFetching: false,//loading
     followingInProgress: []
 }
 //Reducer
@@ -39,9 +39,9 @@ export const UsersReducer = (state = initialState, action: AppActionsTypes): Use
             return {...state, currentPage: action.currentPage}
         case "SET-USERS-TOTAL-COUNT" :
             return {...state, totalUsersCount: action.totalCount}
-        case "TOOGLE-IS-FETCHING" :
+        case "TOGGLE-IS-FETCHING" :
             return {...state, isFetching: action.isFetching}
-        case "TOOGLE-IS-FOLLOWING-PROGRESS" :
+        case "TOGGLE-IS-FOLLOWING-PROGRESS" :
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -85,20 +85,20 @@ export const setUsersTotalCountAC = (totalCount: number) => {
 }
 export const setToggleIsFetchingAC = (isFetching: boolean) => {
     return {
-        type: "TOOGLE-IS-FETCHING",
+        type: "TOGGLE-IS-FETCHING",
         isFetching
     } as const
 }
 export const setToggleIsFollowingProgressAC = (userId: number, isFetching: boolean) => {
     return {
-        type: "TOOGLE-IS-FOLLOWING-PROGRESS",
+        type: "TOGGLE-IS-FOLLOWING-PROGRESS",
         userId,
         isFetching
     } as const
 }
 //THUNK
 export const getUsersTC = (page: number, pageSize: number): AppThunk => {
-    return async (dispatch,getState:()=>any) => {
+    return async (dispatch, getState: () => any) => {
         getState()
         dispatch(setToggleIsFetchingAC(true))
         dispatch(setCurrentPageAC(page))
@@ -118,13 +118,14 @@ const followUnfollowFlow = async (dispatch: Dispatch, userId: number, apiMethod:
 }
 export const followTC = (userId: number): AppThunk => {
     return async (dispatch) => {
-        console.log("userAPI.follow.bind(userAPI)", userAPI.follow.bind(userAPI))
-        followUnfollowFlow(dispatch, userId, userAPI.follow.bind(userAPI), followSuccessAC)
+
+        await followUnfollowFlow(dispatch, userId, userAPI.follow.bind(userAPI), followSuccessAC)
     }
 }
 export const unFollowTC = (userId: number): AppThunk => {
+
     return async (dispatch) => {
-        followUnfollowFlow(dispatch, userId, userAPI.unFollow.bind(userAPI), unFollowSuccessAC)
+        await followUnfollowFlow(dispatch, userId, userAPI.unFollow.bind(userAPI), unFollowSuccessAC)
     }
 }
 
